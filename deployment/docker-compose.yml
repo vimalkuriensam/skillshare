@@ -3,7 +3,7 @@ services:
   skillshare_frontend:
     build:
       context: ../client
-      dockerfile: ../deployment/Dockerfile.frontend.dev
+      dockerfile: ../deployment/DockerFile.frontend.dev
     container_name: skillshare-app
     ports:
       - 3000:3000
