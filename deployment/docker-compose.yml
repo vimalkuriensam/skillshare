@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+  skillshare_frontend:
+    build:
+      context: ../client
+      dockerfile: ../deployment/DockerFile.frontend.dev
+    container_name: skillshare-app
+    ports:
+      - 3000:3000
+    env_file:
+      - ../environment/.env.frontend.dev
+    volumes:
+      - ../client/src:/app/src
+      - /app/node_modules
+    stdin_open: true
+    tty: true
