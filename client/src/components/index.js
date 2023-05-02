@@ -1,1 +1,1 @@
-export { Button } from "./atoms";
+export { Button, Input, Icon } from "./atoms";

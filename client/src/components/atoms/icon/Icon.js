@@ -6,7 +6,7 @@ const Icon = ({ name, onIconClick, ...rest }) => {
       style={{ position: "relative", display: "flex" }}
       onClick={onIconClick}
     >
-      {require(`../../utils/icons/${name}.js`).default({ ...rest })}
+      {require(`../../../utils/icons/${name}.js`).default({ ...rest })}
     </div>
   );
 };
