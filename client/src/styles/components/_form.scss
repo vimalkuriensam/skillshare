@@ -23,17 +23,17 @@
   }
 
   &__input-1 {
-    height: 4.4rem;
+    height: 6.5rem;
     width: 100%;
     border-radius: 1rem;
-    background: $color-grey-light-1;
+    background: $color-white;
     outline: none;
-    border: none;
-    padding: 0.9rem 1.8rem;
-    font-family: "poppins-regular";
+    border: 1px solid $color-grey-light-1;
+    padding: 2rem 2.5rem;
+    font-family: "inter-italic";
     font-size: 1.8rem;
     &::placeholder {
-      font-family: "poppins-light";
+      font-family: "inter-italic";
       font-size: 1.8rem;
       color: #c8c5c5;
     }
