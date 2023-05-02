@@ -1,11 +1,17 @@
 import React from "react";
-import { Button, Input } from "../../components";
+import { Title } from "../../components";
 
 const Dashboard = () => {
-  return <div>
-    <Button variant="1-1" content="Submit" />
-    <Input placeholder="hello" variant="1" />
-  </div>;
+  return (
+    <div>
+      <div>
+        <Title variant="sbi-40-1">Welcome Back</Title>
+      </div>
+      <div>
+        <Title>SKILLSEARCH</Title>
+      </div>
+    </div>
+  );
 };
 
 export default Dashboard;

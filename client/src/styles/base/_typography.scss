@@ -1,32 +1,50 @@
 @font-face {
   font-family: "inter-italic";
-  src: url(../../utils/fonts/inter/Inter-Italic.otf) format("otf");
+  src: url(../../utils/fonts/inter/Inter-Italic.otf);
 }
 
+@font-face {
+  font-family: "inter-semi-bold-italic";
+  src: url(../../utils/fonts/inter/Inter-SemiBoldItalic.otf);
+}
+
+@font-face {
+  font-family: "oleoscript-bold";
+  src: url(../../utils/fonts/oleo-script/OleoScript-Bold.ttf);
+}
 
 body {
-    // font-family: "Lato", sans-serif;
-    font-family: "Times New Roman";
-    font-weight: 400;
-    font-size: $default-font-size;
-    line-height: 1.7;
-    color: $color-grey-dark;
-    // padding: 3rem;
+  // font-family: "Lato", sans-serif;
+  font-family: "Times New Roman";
+  font-weight: 400;
+  font-size: $default-font-size;
+  line-height: 1.7;
+  color: $color-grey-dark;
+  // padding: 3rem;
+}
+
+.title {
+  color: $color-grey-dark;
+  font-size: 1.8rem;
+  font-family: "poppins-regular";
+  display: inline-block;
+
+  &--osb-49-1 {
+    font-family: "oleoscript-bold";
+    font-size: 4.9rem;
+    color: $color-white;
   }
-  
-  .title {
-    color: $color-grey-dark;
-    font-size: 1.8rem;
-    font-family: "poppins-regular";
-    display: inline-block;
-    
+
+  &--sbi-40-1 {
+    font-family: "inter-semi-bold-italic";
+    font-size: 4rem;
+    color: #8c8c8c;
   }
-  
-  .text {
-    font-size: 1.8rem;
-    color: $color-grey-dark;
-    font-family: "poppins-regular";
-    display: inline-block;
-  
-    
-  }
+}
+
+.text {
+  font-size: 1.8rem;
+  color: $color-grey-dark;
+  font-family: "poppins-regular";
+  display: inline-block;
+}
