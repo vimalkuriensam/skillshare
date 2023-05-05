@@ -1,0 +1,106 @@
+@font-face {
+  font-family: "alegreyasans-sc-regular";
+  src: url(../../utils/fonts/algreya-sans/AlegreyaSansSC-Regular.ttf);
+}
+
+@font-face {
+  font-family: "inter-bold";
+  src: url(../../utils/fonts/inter/Inter-Bold.otf);
+}
+
+@font-face {
+  font-family: "inter-italic";
+  src: url(../../utils/fonts/inter/Inter-Italic.otf);
+}
+
+@font-face {
+  font-family: "inter-regular";
+  src: url(../../utils/fonts/inter/Inter-Regular.otf);
+}
+
+@font-face {
+  font-family: "inter-medium";
+  src: url(../../utils/fonts/inter/Inter-Medium.otf);
+}
+
+@font-face {
+  font-family: "inter-semi-bold-italic";
+  src: url(../../utils/fonts/inter/Inter-SemiBoldItalic.otf);
+}
+
+@font-face {
+  font-family: "oleoscript-bold";
+  src: url(../../utils/fonts/oleo-script/OleoScript-Bold.ttf);
+}
+
+body {
+  // font-family: "Lato", sans-serif;
+  font-family: "Times New Roman";
+  font-weight: 400;
+  font-size: $default-font-size;
+  line-height: 1.7;
+  color: $color-grey-dark;
+  // padding: 3rem;
+}
+
+.title {
+  color: $color-grey-dark;
+  font-size: 1.8rem;
+  font-family: "inter-regular";
+  display: inline-block;
+
+  &--asr-24-1 {
+    font-size: 2.4rem;
+    font-family: "alegreyasans-sc-regular";
+    color: $color-white;
+  }
+
+  &--ib-17-1 {
+    font-family: "inter-bold";
+    font-size: 1.7rem;
+    color: #fea23c;
+  }
+
+  &--osb-49-1 {
+    font-family: "oleoscript-bold";
+    font-size: 4.9rem;
+    color: $color-white;
+  }
+
+  &--sbi-40-1 {
+    font-family: "inter-semi-bold-italic";
+    font-size: 4rem;
+    color: #8c8c8c;
+  }
+}
+
+.text {
+  font-size: 1.8rem;
+  color: $color-grey-dark;
+  font-family: "poppins-regular";
+  display: inline-block;
+
+  &--im-17-1 {
+    font-family: "inter-medium";
+    font-size: 1.7rem;
+    color: $color-grey-light-1;
+  }
+
+  &--ir-20-1 {
+    font-size: 2rem;
+    font-family: "inter-regular";
+    color: $color-white;
+  }
+
+  &--ib-20-1 {
+    font-size: 2rem;
+    font-family: "inter-bold";
+    color: $color-grey-light-1;
+  }
+
+  &--ib-20-2 {
+    font-size: 2rem;
+    font-family: "inter-bold";
+    color: $color-white;
+  }
+}
