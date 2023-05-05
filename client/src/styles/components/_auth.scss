@@ -22,13 +22,32 @@
   }
 
   &__form {
-    padding: 14rem 18.1rem 17rem 18.1rem;
+    padding: 14rem 12rem 17rem 12rem;
     flex: 8;
   }
 
   &__formText {
     background: $color-primary;
-    flex: 6;
+    flex: 4;
     padding: 8rem 5rem;
+  }
+
+  &__channelContainer {
+    display: flex;
+    align-items: center;
+    border: 1px solid $color-grey-light-2;
+    margin-top: 4.5rem;
+  }
+
+  &__channelActive {
+    background: $color-primary;
+    padding: 1rem 8rem;
+    flex: 1;
+  }
+
+  &__channelInactive {
+    background: $color-white;
+    padding: 1rem 8rem;
+    flex: 1;
   }
 }
