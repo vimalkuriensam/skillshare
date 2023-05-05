@@ -3,12 +3,12 @@ services:
   skillshare_frontend:
     build:
       context: ../client
-      dockerfile: ../deployment/DockerFile.frontend.dev
+      dockerfile: ../deployment/DockerFile.dev.frontend
     container_name: skillshare-app
     ports:
       - 3000:3000
     env_file:
-      - ../environment/.env.frontend.dev
+      - ../environment/.env.dev.frontend
     volumes:
       - ../client/src:/app/src
       - /app/node_modules
@@ -24,3 +24,22 @@ services:
       - '5432:5432'
     volumes:
       - db:/var/lib/postgresql/data
+
+  skillshare_backend:
+    build:
+      context: ../server
+      dockerfile: ../deployment/DockerFile.dev.backend
+    container_name: skillshare-server
+    ports:
+      - 4000:4000
+    env_file:
+      - ../environment/.env.dev.backend
+    depends_on:
+      - skillshare_db
+    volumes:
+      - ../server/src:/app/src/
+      - /app/node_modules
+
+volumes:
+  db:
+    driver: local
