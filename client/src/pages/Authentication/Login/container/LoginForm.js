@@ -1,11 +1,14 @@
 import React from "react";
-import { Input } from "../../../../components";
+import { FormInput, Title } from "../../../../components";
 
 const LoginForm = () => {
   return (
     <form className="auth__form">
-      <Input variant="1" placeholder="username" />
-      <Input variant="1" placeholder="password" />
+      <Title variant="isbi-40-1 u-text-capitalize u-width-100 u-text-center">
+        Welcome Back
+      </Title>
+      <FormInput variant="1" placeholder="username" />
+      <FormInput variant="1" placeholder="password" />
     </form>
   );
 };

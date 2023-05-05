@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router";
+import { Title } from "../../../components";
 
 import LoginForm from "./container/LoginForm";
 import LoginText from "./container/LoginText";

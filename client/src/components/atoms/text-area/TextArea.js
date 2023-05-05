@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import Title from "./Title";
+
+import { Title } from "../title";
 
 const TextArea = ({
   value,
