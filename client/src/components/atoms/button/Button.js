@@ -1,7 +1,7 @@
 import React from "react";
 
 const Button = ({
-  variant = "1",
+  variant = "1-1",
   content = "Default",
   onButtonClick,
   className,
