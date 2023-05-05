@@ -14,3 +14,13 @@ services:
       - /app/node_modules
     stdin_open: true
     tty: true
+
+  skillshare_db:
+    image: postgres:14.1-alpine
+    restart: always
+    env_file:
+      - ../environment/.env.postgres
+    ports:
+      - '5432:5432'
+    volumes:
+      - db:/var/lib/postgresql/data
