@@ -1,2 +1,2 @@
 export { Dashboard } from "./Dashboard";
-export { Login, Signup } from "./Authentication";
+export { Auth, Login, Signup } from "./Authentication";
