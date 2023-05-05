@@ -12,14 +12,14 @@ const AuthChannel = ({
       <div
         className={`${
           channelValue == DATA.channelValue.login
-            ? "auth__channelInactive"
-            : "auth__channelActive"
+            ? "auth__channelActive"
+            : "auth__channelInactive"
         }`}
         onClick={onHandleChannel.bind(this, DATA.channelValue.login)}
       >
         <Text
           variant={`${
-            channelValue == DATA.channelValue.login ? "ib-20-1" : "ib-20-2"
+            channelValue == DATA.channelValue.login ? "ib-20-2" : "ib-20-1"
           }`}
         >
           Login
@@ -35,7 +35,7 @@ const AuthChannel = ({
       >
         <Text
           variant={`${
-            channelValue == DATA.channelValue.login ? "ib-20-2" : "ib-20-1"
+            channelValue == DATA.channelValue.signup ? "ib-20-2" : "ib-20-1"
           }`}
         >
           Sign Up

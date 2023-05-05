@@ -43,6 +43,7 @@
     background: $color-primary;
     padding: 1rem 8rem;
     flex: 1;
+    text-align: center;
   }
 
   &__channelInactive {
@@ -50,5 +51,10 @@
     padding: 1rem 8rem;
     flex: 1;
     cursor: pointer;
+    transition: all .3s;
+    text-align: center;
+    &:hover {
+      background: darken($color-white, 4%);
+    }
   }
 }

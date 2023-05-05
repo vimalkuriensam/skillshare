@@ -36,7 +36,10 @@ const Auth = () => {
           <Title variant="isbi-40-1 u-text-capitalize u-width-100 u-text-center">
             {DATA.WELCOME_TEXT}
           </Title>
-          <AuthChannel onHandleChannel={onHandleChannel} />
+          <AuthChannel
+            channelValue={channelValue}
+            onHandleChannel={onHandleChannel}
+          />
           <Outlet />
         </form>
         <LoginText />

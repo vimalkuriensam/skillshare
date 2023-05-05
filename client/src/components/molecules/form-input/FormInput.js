@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 
 import { Title, Input, TextArea } from "../../atoms";
 
@@ -9,18 +9,21 @@ const FormInput = ({
   listings = true,
   ...rest
 }) => {
+  const inputRef = useRef(null);
+  useEffect(() => {
+    console.log(inputRef.current?.value);
+  }, [inputRef.current?.value]);
   return (
     <div className="form__inputGroup">
-      <Title
-        variant="pr-16-1"
-        className="form__calendarGroup--text u-margin-bottom-10"
-      >
-        {title}
-      </Title>
       {type == "textarea" ? (
         <TextArea variant={variant} listings={listings} {...rest} />
       ) : (
         <Input variant={variant} type={type} {...rest} />
+      )}
+      {title && (
+        <Title variant="pr-16-1" className="form__inputTitle">
+          {title}
+        </Title>
       )}
     </div>
   );
