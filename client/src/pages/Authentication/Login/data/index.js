@@ -16,4 +16,5 @@ export const DATA = {
 export const LOGIN_DEFAULT_FIELDS = {
   username: "",
   password: "",
+  reminder: true,
 };

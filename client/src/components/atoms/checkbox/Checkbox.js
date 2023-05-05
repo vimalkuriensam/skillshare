@@ -14,6 +14,7 @@ const Checkbox = ({
 
   const onHandleInputChange = () =>
     checkBoxInput({ target: { value: checkRef.current.checked } });
+
   return (
     <div className={`form__checkbox-1 ${className}`}>
       <input

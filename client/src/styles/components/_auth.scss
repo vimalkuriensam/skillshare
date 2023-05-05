@@ -14,7 +14,7 @@
     @include absCenter;
     width: 85%;
     background: $color-white;
-    min-height: 50%;
+    min-height: 73rem;
     display: flex;
     box-shadow: 0.4rem 0.2rem 0.5rem 0.1rem #fea33c77;
     border-radius: 4rem;
@@ -36,7 +36,7 @@
     display: flex;
     align-items: center;
     border: 1px solid $color-grey-light-2;
-    margin-top: 4.5rem;
+    margin-top: 2.5rem;
   }
 
   &__channelActive {

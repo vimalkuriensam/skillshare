@@ -26,7 +26,14 @@ const LoginForm = ({ values, onHandleValues }) => {
           />
         </div>
         <div className="u-margin-top-25 u-space-between">
-          <Checkbox>Remember Me</Checkbox>
+          <Checkbox
+            id="login-reminder"
+            value={values.reminder}
+            checkBoxInput={onHandleValues.bind(this, "reminder")}
+            variant="2"
+          >
+            Remember Me
+          </Checkbox>
           <Title
             className="u-text-underline u-cursor-pointer"
             variant="ib-17-1"

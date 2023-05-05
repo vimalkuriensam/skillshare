@@ -381,16 +381,17 @@
       &::after {
         content: "\1F5F8";
         color: $color-white;
-        padding: 0 0.3rem;
         display: block;
         height: 1.7rem;
         width: 1.7rem;
-        padding: 0rem 0.4rem;
         @include absCenter;
+        top: 40%;
         font-weight: 700;
-        background-color: $color-tertiary;
+        background-color: #fea23c;
         opacity: 0;
         transition: opacity 0.2s;
+        padding-bottom: 2rem;
+        padding-left: 0.2rem;
       }
     }
 
