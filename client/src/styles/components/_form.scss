@@ -437,7 +437,7 @@
 
     &--label {
       display: flex;
-      align-items: flex-start;
+      align-items: center;
       cursor: pointer;
       > * {
         &:not(:first-child) {
@@ -447,13 +447,13 @@
     }
 
     &--container {
-      background: $color-grey-light-1;
+      background: $color-white;
       border-radius: 0.3rem;
+      border: 1px solid $color-grey-light-1;
       cursor: pointer;
-      margin-top: 1rem;
-      height: 2rem;
-      min-width: 2rem;
-      min-height: 2rem;
+      height: 1.7rem;
+      min-width: 1.7rem;
+      min-height: 1.7rem;
       position: relative;
       overflow: hidden;
       &::after {
@@ -461,8 +461,8 @@
         color: $color-white;
         padding: 0 0.3rem;
         display: block;
-        height: 2rem;
-        width: 2rem;
+        height: 1.7rem;
+        width: 1.7rem;
         padding: 0rem 0.4rem;
         @include absCenter;
         font-weight: 700;

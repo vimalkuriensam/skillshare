@@ -1,13 +1,26 @@
 import React from "react";
-import { Text, Title } from "../../components";
+import { useState } from "react";
+import { Checkbox, Text, Title } from "../../components";
 
 const Dashboard = () => {
+  const [checkboxValue, setCheckboxValue] = useState(false);
   return (
     <div>
+      <div>Here</div>
+      <Checkbox
+        variant="2"
+        value={checkboxValue}
+        checkBoxInput={({ target: { value } }) => console.log(value)}
+      >
+        Remember Me
+      </Checkbox>
       <div>
         <Title variant="sbi-40-1">Welcome Back</Title>
       </div>
       <div style={{ background: "#000" }}>
+        <div>
+          <Title variant="asr-24-1">INTRODUCING</Title>
+        </div>
         <Title variant="osb-49-1">SKILLSEARCH</Title>
         <div>
           <Text variant="ir-20-1">

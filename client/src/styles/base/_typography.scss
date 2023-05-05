@@ -19,6 +19,11 @@
 }
 
 @font-face {
+  font-family: "inter-medium";
+  src: url(../../utils/fonts/inter/Inter-Medium.otf);
+}
+
+@font-face {
   font-family: "inter-semi-bold-italic";
   src: url(../../utils/fonts/inter/Inter-SemiBoldItalic.otf);
 }
@@ -41,8 +46,20 @@ body {
 .title {
   color: $color-grey-dark;
   font-size: 1.8rem;
-  font-family: "poppins-regular";
+  font-family: "inter-regular";
   display: inline-block;
+
+  &--asr-24-1 {
+    font-size: 2.4rem;
+    font-family: "alegreyasans-sc-regular";
+    color: $color-white;
+  }
+
+  &--ib-17-1 {
+    font-family: "inter-bold";
+    font-size: 1.7rem;
+    color: #fea23c;
+  }
 
   &--osb-49-1 {
     font-family: "oleoscript-bold";
@@ -63,10 +80,10 @@ body {
   font-family: "poppins-regular";
   display: inline-block;
 
-  &--asr-24-1 {
-    font-size: 2.4rem;
-    font-family: "alegreyasans-sc-regular";
-    color: $color-white;
+  &--im-17-1 {
+    font-family: "inter-medium";
+    font-size: 1.7rem;
+    color: $color-grey-light-1;
   }
 
   &--ir-20-1 {
