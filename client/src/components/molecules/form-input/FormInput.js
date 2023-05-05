@@ -9,10 +9,6 @@ const FormInput = ({
   listings = true,
   ...rest
 }) => {
-  const inputRef = useRef(null);
-  useEffect(() => {
-    console.log(inputRef.current?.value);
-  }, [inputRef.current?.value]);
   return (
     <div className="form__inputGroup">
       {type == "textarea" ? (
