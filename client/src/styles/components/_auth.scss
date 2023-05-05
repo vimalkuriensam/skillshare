@@ -1,0 +1,34 @@
+.auth {
+  &__block {
+    width: 35rem;
+    height: 35rem;
+    background: $color-primary;
+  }
+  &__blockTopLeft {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+
+  &__formContainer {
+    @include absCenter;
+    width: 85%;
+    background: $color-white;
+    min-height: 50%;
+    display: flex;
+    box-shadow: 0.4rem 0.2rem 0.5rem 0.1rem #fea33c77;
+    border-radius: 4rem;
+    overflow: hidden;
+  }
+
+  &__form {
+    padding: 14rem 18.1rem 17rem 18.1rem;
+    flex: 8;
+  }
+
+  &__formText {
+    background: $color-primary;
+    flex: 6;
+    padding: 8rem 5rem;
+  }
+}
