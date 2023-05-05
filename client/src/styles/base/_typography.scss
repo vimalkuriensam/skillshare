@@ -1,6 +1,21 @@
 @font-face {
+  font-family: "alegreyasans-sc-regular";
+  src: url(../../utils/fonts/algreya-sans/AlegreyaSansSC-Regular.ttf);
+}
+
+@font-face {
+  font-family: "inter-bold";
+  src: url(../../utils/fonts/inter/Inter-Bold.otf);
+}
+
+@font-face {
   font-family: "inter-italic";
   src: url(../../utils/fonts/inter/Inter-Italic.otf);
+}
+
+@font-face {
+  font-family: "inter-regular";
+  src: url(../../utils/fonts/inter/Inter-Regular.otf);
 }
 
 @font-face {
@@ -47,4 +62,28 @@ body {
   color: $color-grey-dark;
   font-family: "poppins-regular";
   display: inline-block;
+
+  &--asr-24-1 {
+    font-size: 2.4rem;
+    font-family: "alegreyasans-sc-regular";
+    color: $color-white;
+  }
+
+  &--ir-20-1 {
+    font-size: 2rem;
+    font-family: "inter-regular";
+    color: $color-white;
+  }
+
+  &--ib-20-1 {
+    font-size: 2rem;
+    font-family: "inter-bold";
+    color: $color-grey-light-1;
+  }
+
+  &--ib-20-2 {
+    font-size: 2rem;
+    font-family: "inter-bold";
+    color: $color-white;
+  }
 }
