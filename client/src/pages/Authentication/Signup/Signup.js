@@ -18,7 +18,6 @@ const Signup = () => {
   };
 
   const onHandleSignup = () => {}
-
   return (
     <Fragment>
       <SignupForm values={signupContent} onHandleValues={onHandleValues} />

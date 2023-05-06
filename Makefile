@@ -3,4 +3,4 @@ frontend_build:
 
 
 frontend_down:
-	docker-compose -f ./deployment/docker-compose.yml down
+	docker-compose -f ./deployment/docker-compose.yml down -v

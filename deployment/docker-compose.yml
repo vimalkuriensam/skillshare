@@ -5,6 +5,7 @@ services:
       context: ../client
       dockerfile: ../deployment/DockerFile.dev.frontend
     container_name: skillshare-app
+    restart: always
     ports:
       - 3000:3000
     env_file:
@@ -30,6 +31,7 @@ services:
       context: ../server
       dockerfile: ../deployment/DockerFile.dev.backend
     container_name: skillshare-server
+    restart: always
     ports:
       - 4000:4000
     env_file:

@@ -14,7 +14,6 @@ const Login = () => {
     setLoginError((prevState) => ({ ...prevState, [key]: "" }));
     setLoginContent((prevState) => ({ ...prevState, [key]: value }));
   };
-
   return (
     <Fragment>
       <LoginForm values={loginContent} onHandleValues={onHandleValues} />
