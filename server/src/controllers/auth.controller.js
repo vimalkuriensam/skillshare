@@ -1,12 +1,16 @@
 const validator = require("validator");
 const bcrypt = require("bcrypt");
 
-const { InsertUser } = require("../db/query");
+const { InsertUser, VerifyCredentials } = require("../db/query");
 
 const LoginController = async (req, res) => {
   try {
+    const { username, password } = req.body;
+    const { user, token } = await VerifyCredentials({ username, password });
+    res.status(200).send({ message: "USER_VERIFIED", user, token });
   } catch (e) {
     console.log(e.message);
+    res.status(400).send({ error: e.message });
   }
 };
 
