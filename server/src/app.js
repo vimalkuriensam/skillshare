@@ -1,10 +1,13 @@
 const express = require("express");
+
+const CustomiseResponse = require("./middleware/CustomiseResponse");
 require("./db/db");
 
 const { router: authRouter } = require("./routes/auth.routes");
 
 const app = express();
 app.use(express.json());
+app.use(CustomiseResponse)
 
 const PORT = process.env.PORT || 4000;
 
