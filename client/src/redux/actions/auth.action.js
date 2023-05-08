@@ -1,6 +1,19 @@
 import Axios from "axios";
 import ApiService from "../../api-interceptor/authAxios";
 
+export const SET_USER = "SET_USER";
+export const DELETE_USER = "DELETE_USER";
+
+export const SET_TOKEN = "SET_TOKEN";
+export const DELETE_TOKEN = "DELETE_TOKEN";
+
+export const setUser = ({ user = {} }) => ({
+  type: SET_USER,
+  user,
+});
+
+export const deleteUser = () => ({ type: DELETE_USER });
+
 export const registerUser =
   ({ username, email, password }) =>
   async (dispatch) => {
