@@ -11,3 +11,6 @@ frontend_down:
 
 run_postgres:
 	docker-compose -f ./deployment/docker-compose.yml up -d skillshare_db
+
+run_backend:
+	docker-compose -f ./deployment/docker-compose.yml up -d skillshare_backend

@@ -75,7 +75,7 @@ const Input = ({
       className={`form__input-${variant} ${className}`}
       type={type}
       required
-      pattern="[a-zA-Z0-9]+"
+      pattern="[a-zA-Z0-9\W]+"
       {...rest}
     />
   );

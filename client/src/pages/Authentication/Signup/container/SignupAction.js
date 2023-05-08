@@ -2,10 +2,10 @@ import React from "react";
 
 import { Button } from "../../../../components";
 
-const SignupAction = ({ onHandleSignup = () => {} }) => {
+const SignupAction = () => {
   return (
     <div className="u-margin-top-25">
-      <Button content="SUBMIT" onButtonClick={onHandleSignup} />
+      <Button content="SUBMIT" type="submit" />
     </div>
   );
 };

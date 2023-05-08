@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require('cors');
 
 const CustomiseResponse = require("./middleware/CustomiseResponse");
 require("./db/db");
@@ -6,6 +7,7 @@ require("./db/db");
 const { router: authRouter } = require("./routes/auth.routes");
 
 const app = express();
+app.use(cors());
 app.use(express.json());
 app.use(CustomiseResponse)
 

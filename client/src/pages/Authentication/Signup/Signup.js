@@ -1,10 +1,12 @@
 import React, { Fragment, useState } from "react";
+import { connect } from "react-redux";
+import { registerUser } from "../../../redux/actions/auth.action";
 import SignupAction from "./container/SignupAction";
 import SignupForm from "./container/SignupForm";
 
 import { SIGNUP_DEFAULT_FIELDS } from "./data";
 
-const Signup = () => {
+const Signup = ({ dispatch }) => {
   const [signupContent, setSignupContent] = useState({
     ...SIGNUP_DEFAULT_FIELDS,
   });
@@ -17,13 +19,21 @@ const Signup = () => {
     setSignupContent((prevState) => ({ ...prevState, [key]: value }));
   };
 
-  const onHandleSignup = () => {}
+  const onHandleSignup = async (e) => {
+    try {
+      e.preventDefault();
+      const resp = await dispatch(registerUser({ ...signupContent }));
+      console.log("result", resp);
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
   return (
-    <Fragment>
+    <form onSubmit={onHandleSignup}>
       <SignupForm values={signupContent} onHandleValues={onHandleValues} />
-      <SignupAction onHandleSignup={onHandleSignup} />
-    </Fragment>
+      <SignupAction onHandleSignup />
+    </form>
   );
 };
 
-export default Signup;
+export default connect()(Signup);

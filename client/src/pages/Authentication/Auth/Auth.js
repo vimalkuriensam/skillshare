@@ -27,12 +27,11 @@ const Auth = () => {
       return DATA.channelValue.login;
     });
   };
-
   return (
     <div>
       <div className="auth__block auth__blockTopLeft"></div>
       <div className="auth__formContainer">
-        <form className="auth__form">
+        <div className="auth__form">
           <Title variant="isbi-40-1 u-text-capitalize u-width-100 u-text-center">
             {DATA.WELCOME_TEXT}
           </Title>
@@ -41,7 +40,7 @@ const Auth = () => {
             onHandleChannel={onHandleChannel}
           />
           <Outlet />
-        </form>
+        </div>
         <LoginText />
       </div>
     </div>
