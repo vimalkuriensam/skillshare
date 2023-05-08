@@ -12,6 +12,7 @@ import {
   Login as LoginPage,
   Signup as SignupPage,
 } from "../pages";
+import PrivateRoute from "./PrivateRoute";
 
 const OutletComponent = () => (
   <Fragment>
@@ -24,7 +25,14 @@ const AppRoutes = () => {
     <Router>
       <Routes>
         <Route path="/" element={<Navigate to="/dashboard" replace />} />
-        <Route path="/dashboard" element={<DashboardPage />} />
+        <Route
+          path="/dashboard"
+          element={
+            <PrivateRoute>
+              <DashboardPage />
+            </PrivateRoute>
+          }
+        />
         <Route path="/auth" element={<AuthPage />}>
           <Route path="/auth/login" element={<LoginPage />} />
           <Route path="/auth/signup" element={<SignupPage />} />
