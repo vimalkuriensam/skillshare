@@ -1,16 +1,23 @@
-import React from "react";
+import React, { Fragment } from "react";
+import { connect } from "react-redux";
 
-const Loader = () => {
+const Loader = ({ loader }) => {
   return (
-    <div className="loader">
-      <div class="lds-ring">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-      </div>
-    </div>
+    <Fragment>
+      {loader && (
+        <div className="loader">
+          <div class="lds-ring">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        </div>
+      )}
+    </Fragment>
   );
 };
 
-export default Loader;
+const mapStateToProps = ({ utils: { loader = false } }) => ({ loader });
+
+export default connect(mapStateToProps)(Loader);
