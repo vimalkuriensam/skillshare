@@ -11,9 +11,11 @@ const DATA = {
         password VARCHAR(100) NOT NULL
     );`,
   INSERT_USER: `INSERT INTO users(username, email, password)
-        VALUES ($1, $2, $3);`,
+                VALUES ($1, $2, $3);`,
   GET_USER_USERNAME: `SELECT * FROM users
                       WHERE username = $1`,
+  GET_USER_ID: `SELECT * FROM users
+                WHERE user_id = $1`,
 };
 
 module.exports = { DATA };

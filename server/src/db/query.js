@@ -1,3 +1,5 @@
+const { generateAuthToken } = require("../utils");
+
 const { DATA } = require("./data");
 const { pool } = require("./db");
 
@@ -10,7 +12,8 @@ const InsertUser = async ({ username, password, email }) => {
     ]);
     if (result) {
       const user = await SearchUserByUsername({ username });
-      return { user };
+      const token = generateAuthToken({ id: user.user_id, username: user.username });
+      return { user, token };
     }
   } catch (e) {
     console.log("in query", e.detail);
@@ -22,7 +25,6 @@ const SearchUserByUsername = async ({ username }) => {
   try {
     const { rows } = await pool.query(DATA.GET_USER_USERNAME, [username]);
     const user = rows[0];
-    console.log("user", user);
     delete user["password"];
     return user;
   } catch (e) {
