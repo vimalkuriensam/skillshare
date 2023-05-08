@@ -15,12 +15,12 @@ const RegisterController = async (req, res) => {
     const { username, email, password } = req.body;
     const hashedPassword = await bcrypt.hash(password, 10);
     if (!validator.isEmail(email)) throw { message: "INVALID_EMAIL_FORMAT" };
-    const result = await InsertUser({
+    const { user } = await InsertUser({
       username,
       email,
       password: hashedPassword,
     });
-    if (result) res.status(201).send({ message: "USER CREATED" });
+    if (user) res.status(201).send({ message: "USER CREATED", user });
   } catch (e) {
     res.status(500).send({ error: e.message });
   }

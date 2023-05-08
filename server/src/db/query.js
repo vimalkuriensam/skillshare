@@ -8,7 +8,23 @@ const InsertUser = async ({ username, password, email }) => {
       email,
       password,
     ]);
-    if (result) return true;
+    if (result) {
+      const user = await SearchUserByUsername({ username });
+      return { user };
+    }
+  } catch (e) {
+    console.log("in query", e.detail);
+    throw { message: e.detail };
+  }
+};
+
+const SearchUserByUsername = async ({ username }) => {
+  try {
+    const { rows } = await pool.query(DATA.GET_USER_USERNAME, [username]);
+    const user = rows[0];
+    console.log("user", user);
+    delete user["password"];
+    return user;
   } catch (e) {
     console.log("in query", e.detail);
     throw { message: e.detail };

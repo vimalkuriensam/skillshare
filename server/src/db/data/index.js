@@ -12,6 +12,8 @@ const DATA = {
     );`,
   INSERT_USER: `INSERT INTO users(username, email, password)
         VALUES ($1, $2, $3);`,
+  GET_USER_USERNAME: `SELECT * FROM users
+                      WHERE username = $1`,
 };
 
 module.exports = { DATA };
