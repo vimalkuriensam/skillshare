@@ -1,11 +1,11 @@
-import React, { Fragment } from "react";
+import React from "react";
 import {
   BrowserRouter as Router,
   Navigate,
-  Outlet,
   Route,
   Routes,
 } from "react-router-dom";
+import { Loader } from "../components";
 import {
   Auth as AuthPage,
   Dashboard as DashboardPage,
@@ -14,15 +14,10 @@ import {
 } from "../pages";
 import PrivateRoute from "./PrivateRoute";
 
-const OutletComponent = () => (
-  <Fragment>
-    <Outlet />
-  </Fragment>
-);
-
 const AppRoutes = () => {
   return (
     <Router>
+      <Loader />
       <Routes>
         <Route path="/" element={<Navigate to="/dashboard" replace />} />
         <Route
