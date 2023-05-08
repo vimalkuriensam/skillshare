@@ -14,12 +14,19 @@ export const setUser = ({ user = {} }) => ({
 
 export const deleteUser = () => ({ type: DELETE_USER });
 
+export const setToken = ({ value = "" }) => ({
+  type: SET_TOKEN,
+  value,
+});
+
+export const deleteToken = () => ({ type: DELETE_TOKEN });
+
 export const registerUser =
   ({ username, email, password }) =>
   async (dispatch) => {
     try {
       console.log(username, email, password);
-      const resp = await Axios.post(
+      const { data, status } = await Axios.post(
         `http://${process.env.REACT_APP_BACKEND_HOST}/api/v1/auth/signup`,
         {
           username,
@@ -27,7 +34,12 @@ export const registerUser =
           password,
         }
       );
-      return resp;
+      if (status == 201) {
+        dispatch(setUser({ user: data["data"]["user"] }));
+        dispatch(setToken({ value: data["data"]["token"] }));
+        return true;
+      }
+      return false;
     } catch (e) {
       console.log(e);
     }
