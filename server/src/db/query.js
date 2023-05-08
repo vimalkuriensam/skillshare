@@ -12,7 +12,10 @@ const InsertUser = async ({ username, password, email }) => {
     ]);
     if (result) {
       const user = await SearchUserByUsername({ username });
-      const token = generateAuthToken({ id: user.user_id, username: user.username });
+      const token = generateAuthToken({
+        id: user.user_id,
+        username: user.username,
+      });
       return { user, token };
     }
   } catch (e) {
@@ -33,4 +36,14 @@ const SearchUserByUsername = async ({ username }) => {
   }
 };
 
-module.exports = { InsertUser };
+const SearchUserById = async ({ id }) => {
+  try {
+    const { rows } = await pool.query(DATA.GET_USER_ID, [id]);
+    const user = rows[0];
+    return user;
+  } catch (e) {
+    throw { message: e.message };
+  }
+};
+
+module.exports = { InsertUser, SearchUserByUsername, SearchUserById };
