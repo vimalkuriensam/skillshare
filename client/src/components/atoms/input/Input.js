@@ -74,8 +74,8 @@ const Input = ({
       onChange={onHandleText}
       className={`form__input-${variant} ${className}`}
       type={type}
-      required
-      pattern="[a-zA-Z0-9\W]+"
+      // required
+      // pattern="[a-zA-Z0-9\W]+"
       {...rest}
     />
   );

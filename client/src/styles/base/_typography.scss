@@ -103,4 +103,9 @@ body {
     font-family: "inter-bold";
     color: $color-white;
   }
+
+  &--error-12 {
+    font-size: 1.2rem;
+    color: rgb(183, 3, 3);
+  }
 }

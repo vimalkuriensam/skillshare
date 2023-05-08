@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 
 import { FormInput } from "../../../../components";
 
-const SignupForm = ({ values, onHandleValues = () => {} }) => {
+const SignupForm = ({ values, error, onHandleValues = () => {} }) => {
   return (
     <Fragment>
       <div className="u-margin-top-40">
@@ -10,6 +10,7 @@ const SignupForm = ({ values, onHandleValues = () => {} }) => {
           <FormInput
             title="username"
             value={values.username}
+            error={error.username}
             variant="1"
             placeholder="username"
             onHandleText={onHandleValues.bind(this, "username")}
@@ -19,6 +20,7 @@ const SignupForm = ({ values, onHandleValues = () => {} }) => {
           <FormInput
             title="email"
             value={values.email}
+            error={error.email}
             variant="1"
             placeholder="email"
             onHandleText={onHandleValues.bind(this, "email")}
@@ -28,6 +30,7 @@ const SignupForm = ({ values, onHandleValues = () => {} }) => {
           <FormInput
             title="password"
             value={values.password}
+            error={error.password}
             variant="1"
             placeholder="password"
             type="password"
@@ -38,6 +41,7 @@ const SignupForm = ({ values, onHandleValues = () => {} }) => {
           <FormInput
             title="confirm password"
             value={values.confirmPassword}
+            error={error.confirmPassword}
             variant="1"
             placeholder="confirm password"
             type="password"

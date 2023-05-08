@@ -5,7 +5,7 @@ import { loginUser } from "../../../redux/actions/auth.action";
 
 import LoginAction from "./container/LoginAction";
 import LoginForm from "./container/LoginForm";
-import { LOGIN_DEFAULT_FIELDS } from "./data";
+import { ERROR_MSG, LOGIN_DEFAULT_FIELDS } from "./data";
 
 const Login = ({ dispatch }) => {
   const navigate = useNavigate();
@@ -17,11 +17,22 @@ const Login = ({ dispatch }) => {
     setLoginContent((prevState) => ({ ...prevState, [key]: value }));
   };
 
+  const validate = () => {
+    const error = {};
+    Object.keys(loginError).forEach((key) => {
+      if (!loginContent[key]) error[key] = ERROR_MSG[key];
+    });
+    return error;
+  };
+
   const onHandleLogin = async (e) => {
     try {
       e.preventDefault();
-      const resp = await dispatch(loginUser({ ...loginContent }));
-      if (resp) navigate("/dashboard");
+      const error = validate();
+      if (!Object.keys(error).length) {
+        const resp = await dispatch(loginUser({ ...loginContent }));
+        if (resp) navigate("/dashboard");
+      } else setLoginError(error);
     } catch (e) {
       console.log(e.message);
     }
@@ -29,7 +40,11 @@ const Login = ({ dispatch }) => {
 
   return (
     <form onSubmit={onHandleLogin}>
-      <LoginForm values={loginContent} onHandleValues={onHandleValues} />
+      <LoginForm
+        values={loginContent}
+        error={loginError}
+        onHandleValues={onHandleValues}
+      />
       <LoginAction />
     </form>
   );

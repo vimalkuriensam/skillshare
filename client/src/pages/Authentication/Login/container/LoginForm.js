@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 
 import { Checkbox, FormInput, Title } from "../../../../components";
 
-const LoginForm = ({ values, onHandleValues }) => {
+const LoginForm = ({ values, onHandleValues, error={} }) => {
   return (
     <Fragment>
       <div className="u-margin-top-40">
@@ -10,6 +10,7 @@ const LoginForm = ({ values, onHandleValues }) => {
           <FormInput
             title="username"
             value={values.username}
+            error={error.username}
             variant="1"
             placeholder="username"
             onHandleText={onHandleValues.bind(this, "username")}
@@ -19,6 +20,7 @@ const LoginForm = ({ values, onHandleValues }) => {
           <FormInput
             title="password"
             value={values.password}
+            error={error.password}
             variant="1"
             placeholder="password"
             type="password"

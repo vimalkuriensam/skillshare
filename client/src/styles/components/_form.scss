@@ -22,6 +22,14 @@
     opacity: 0.75;
   }
 
+  &__inputError {
+    border: 1px solid rgb(183, 3, 3) !important;
+    color: rgb(183, 3, 3) !important;
+    &::placeholder {
+      color: rgb(183, 3, 3) !important;
+    }
+  }
+
   &__input-1 {
     height: 5.5rem;
     width: 100%;
@@ -415,16 +423,34 @@
     transition: all 0.3s;
     background: white;
     padding: 0 0.5rem;
+
+    &--showInput {
+      top: 0 !important;
+      left: 2rem !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+      transition: all 0.3s !important;
+    }
+
+    &--errorText {
+      position: absolute;
+      top: 5.5rem;
+      left: 2rem;
+    }
+
+    &--error {
+      color: rgb(183, 3, 3) !important;
+    }
   }
 }
 
-.form__inputGroup > input:valid ~ .form__inputTitle {
-  top: 0;
-  left: 2rem;
-  visibility: visible;
-  opacity: 1;
-  transition: all 0.3s;
-}
+// .form__inputGroup > input:valid ~ .form__inputTitle {
+//   top: 0;
+//   left: 2rem;
+//   visibility: visible;
+//   opacity: 1;
+//   transition: all 0.3s;
+// }
 
 @keyframes pointer-jump {
   0% {
