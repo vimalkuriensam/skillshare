@@ -49,14 +49,22 @@ export const loginUser =
   ({ username, password }) =>
   async (dispatch) => {
     try {
-      const resp = await ApiService().post(
+      const {
+        data: { data },
+        status,
+      } = await ApiService().post(
         `http://${process.env.REACT_APP_BACKEND_HOST}/api/v1/auth/login`,
         {
           username,
           password,
         }
       );
-      return resp;
+      if (status == 200) {
+        dispatch(setUser({ user: data["user"] }));
+        dispatch(setToken({ value: data["token"] }));
+        return true;
+      }
+      return false;
     } catch (e) {
       console.log(e);
     }
