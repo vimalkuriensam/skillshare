@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Navigate,
-  Route,
-  Routes,
-} from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import { Loader } from "../components";
 import {
   Auth as AuthPage,
@@ -12,11 +7,13 @@ import {
   Login as LoginPage,
   Signup as SignupPage,
 } from "../pages";
+import customHistory from "../utils/history/history";
+import CustomRouter from "./CustomRouter";
 import PrivateRoute from "./PrivateRoute";
 
 const AppRoutes = () => {
   return (
-    <Router>
+    <CustomRouter history={customHistory}>
       <Loader />
       <Routes>
         <Route path="/" element={<Navigate to="/dashboard" replace />} />
@@ -33,7 +30,7 @@ const AppRoutes = () => {
           <Route path="/auth/signup" element={<SignupPage />} />
         </Route>
       </Routes>
-    </Router>
+    </CustomRouter>
   );
 };
 

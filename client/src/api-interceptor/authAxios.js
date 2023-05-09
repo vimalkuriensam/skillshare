@@ -1,5 +1,5 @@
 import Axios from "axios";
-// import { useNavigate } from "react-router-dom";
+import { setLoader } from "../redux/actions/utils.action";
 // import {
 //   getAccessToken,
 //   setLogout,
@@ -8,8 +8,7 @@ import Axios from "axios";
 import { store } from "../redux/store/configureStore";
 // import history from "../utils/history";
 
-const ApiService = () => {
-  // const navigate = useNavigate();
+const apiService = () => {
   const api = Axios.create({
     baseURL: process.env.REACT_APP_BACKEND_HOST,
   });
@@ -17,8 +16,8 @@ const ApiService = () => {
   api.interceptors.request.use(async (config) => {
     try {
       currentEndpoint = config.url;
-      //   store.dispatch(setLoader({ state: true }));
-      const token = store.getState().auth?.accessToken;
+      store.dispatch(setLoader({ loader: true }));
+      const token = store.getState().auth?.token;
       if (token) config.headers["Authorization"] = "Bearer " + token;
       config.headers["Content-Type"] = "application/json";
     } catch (e) {
@@ -29,12 +28,11 @@ const ApiService = () => {
 
   api.interceptors.response.use(
     (response) => {
-      console.log("response", response)
-      //   store.dispatch(setLoader({ state: false }));
+      store.dispatch(setLoader({ loader: false }));
       return response;
     },
     async (error) => {
-      //   store.dispatch(setLoader({ state: false }));
+      store.dispatch(setLoader({ state: false }));
       console.log("error", error);
       // if (error.response?.status === 403) {
       //   // store.dispatch(
@@ -64,4 +62,4 @@ const ApiService = () => {
   return api;
 };
 
-export default ApiService;
+export default apiService;
