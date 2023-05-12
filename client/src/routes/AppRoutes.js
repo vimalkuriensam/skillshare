@@ -1,6 +1,6 @@
 import React from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
-import { Header, Loader } from "../components";
+import { Header, Loader, SideNav } from "../components";
 import {
   Auth as AuthPage,
   Dashboard as DashboardPage,
@@ -15,22 +15,27 @@ const AppRoutes = () => {
   return (
     <CustomRouter history={customHistory}>
       <Loader />
-      <Header />
-      <Routes>
-        <Route path="/" element={<Navigate to="/dashboard" replace />} />
-        <Route
-          path="/dashboard"
-          element={
-            <PrivateRoute>
-              <DashboardPage />
-            </PrivateRoute>
-          }
-        />
-        <Route path="/auth" element={<AuthPage />}>
-          <Route path="/auth/login" element={<LoginPage />} />
-          <Route path="/auth/signup" element={<SignupPage />} />
-        </Route>
-      </Routes>
+      <div className="header__container">
+        <SideNav />
+        <div>
+          <Header />
+          <Routes>
+            <Route path="/" element={<Navigate to="/dashboard" replace />} />
+            <Route
+              path="/dashboard"
+              element={
+                <PrivateRoute>
+                  <DashboardPage />
+                </PrivateRoute>
+              }
+            />
+            <Route path="/auth" element={<AuthPage />}>
+              <Route path="/auth/login" element={<LoginPage />} />
+              <Route path="/auth/signup" element={<SignupPage />} />
+            </Route>
+          </Routes>
+        </div>
+      </div>
     </CustomRouter>
   );
 };

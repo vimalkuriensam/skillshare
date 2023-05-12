@@ -7,4 +7,24 @@
   display: flex;
   align-items: center;
   justify-content: end;
+
+  &__container {
+    display: flex;
+    min-height: 100vh;
+  }
+  
+  &__user {
+    cursor: pointer;
+    display: inline-block;
+  }
+  
+  &__sidenav {
+    min-height: 100vh;
+    background: $color-primary;
+    padding: 3rem;
+
+    &--wide {
+      min-width: 32rem;
+    }
+  }
 }

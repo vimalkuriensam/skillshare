@@ -4,7 +4,9 @@ import { Icon } from "../../atoms";
 const Header = () => {
   return (
     <div className="header">
-      <Icon name="User" />
+      <div className="header__user">
+        <Icon name="User" />
+      </div>
     </div>
   );
 };

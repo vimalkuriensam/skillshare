@@ -1,0 +1,1 @@
+export const Capitalize = (content) => content.toUpperCase();
