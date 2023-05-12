@@ -4,6 +4,11 @@
 }
 
 @font-face {
+  font-family: "almarai-regular";
+  src: url(../../utils/fonts/almarai/Almarai-Regular.ttf);
+}
+
+@font-face {
   font-family: "inter-bold";
   src: url(../../utils/fonts/inter/Inter-Bold.otf);
 }
@@ -48,6 +53,12 @@ body {
   font-size: 1.8rem;
   font-family: "inter-regular";
   display: inline-block;
+
+  &--alr-20-1 {
+    font-size: 2rem;
+    font-family: "almarai-regular";
+    color: $color-white;
+  }
 
   &--asr-24-1 {
     font-size: 2.4rem;

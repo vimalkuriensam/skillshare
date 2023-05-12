@@ -12,17 +12,17 @@
     display: flex;
     min-height: 100vh;
   }
-  
+
   &__user {
     cursor: pointer;
     display: inline-block;
   }
-  
+
   &__sidenav {
     min-height: 100vh;
     background: $color-primary;
     padding: 3rem;
-    transition: all .3s;
+    transition: all 0.3s;
 
     &--wide {
       min-width: 32rem;
@@ -37,5 +37,11 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+  }
+
+  &__nav {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 1.4rem;
   }
 }
