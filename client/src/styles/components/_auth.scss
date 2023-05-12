@@ -1,0 +1,60 @@
+.auth {
+  &__block {
+    width: 35rem;
+    height: 35rem;
+    background: $color-primary;
+  }
+  &__blockTopLeft {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+
+  &__formContainer {
+    @include absCenter;
+    width: 85%;
+    background: $color-white;
+    min-height: 73rem;
+    display: flex;
+    box-shadow: 0.4rem 0.2rem 0.5rem 0.1rem #fea33c77;
+    border-radius: 4rem;
+    overflow: hidden;
+  }
+
+  &__form {
+    padding: 8rem 12rem;
+    flex: 8;
+  }
+
+  &__formText {
+    background: $color-primary;
+    flex: 4;
+    padding: 8rem 5rem;
+  }
+
+  &__channelContainer {
+    display: flex;
+    align-items: center;
+    border: 1px solid $color-grey-light-2;
+    margin-top: 2.5rem;
+  }
+
+  &__channelActive {
+    background: $color-primary;
+    padding: 1rem 8rem;
+    flex: 1;
+    text-align: center;
+  }
+
+  &__channelInactive {
+    background: $color-white;
+    padding: 1rem 8rem;
+    flex: 1;
+    cursor: pointer;
+    transition: all .3s;
+    text-align: center;
+    &:hover {
+      background: darken($color-white, 4%);
+    }
+  }
+}
