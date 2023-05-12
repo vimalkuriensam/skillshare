@@ -22,9 +22,14 @@
     min-height: 100vh;
     background: $color-primary;
     padding: 3rem;
+    transition: all .3s;
 
     &--wide {
       min-width: 32rem;
+    }
+
+    &--narrow {
+      min-width: 9rem;
     }
   }
 

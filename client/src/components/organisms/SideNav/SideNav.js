@@ -1,16 +1,24 @@
 import React from "react";
+import { connect } from "react-redux";
+import { toggleNavbar } from "../../../redux/actions/utils.action";
 import { Capitalize } from "../../../utils/data";
 import { Icon, Title } from "../../atoms";
+import SidenavTitle from "./container/SidenavTitle";
 
-const SideNav = () => {
+const SideNav = ({ dispatch, navbar }) => {
+  const onHandleNavbar = () => dispatch(toggleNavbar());
+
   return (
-    <div className="header__sidenav header__sidenav--wide">
-      <div className="header__sidenavContainer">
-        <Title variant="osb-30-1">{Capitalize("SkillSearch")}</Title>
-        <Icon name="Hamburger" />
-      </div>
+    <div
+      className={`header__sidenav ${
+        navbar ? "header__sidenav--wide" : "header__sidenav--narrow"
+      }`}
+    >
+      <SidenavTitle navbar={navbar} onHandleNavbar={onHandleNavbar} />
     </div>
   );
 };
 
-export default SideNav;
+const mapStateToProps = ({ utils: { navbar = true } }) => ({ navbar });
+
+export default connect(mapStateToProps)(SideNav);
