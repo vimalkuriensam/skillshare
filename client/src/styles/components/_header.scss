@@ -27,4 +27,10 @@
       min-width: 32rem;
     }
   }
+
+  &__sidenavContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 }
