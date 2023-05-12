@@ -1,6 +1,6 @@
 import React from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
-import { Loader } from "../components";
+import { Header, Loader } from "../components";
 import {
   Auth as AuthPage,
   Dashboard as DashboardPage,
@@ -15,6 +15,7 @@ const AppRoutes = () => {
   return (
     <CustomRouter history={customHistory}>
       <Loader />
+      <Header />
       <Routes>
         <Route path="/" element={<Navigate to="/dashboard" replace />} />
         <Route
