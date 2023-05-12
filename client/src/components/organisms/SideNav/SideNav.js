@@ -1,5 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import useCurrentPath from "../../../hooks/CurrentPath";
 import { toggleNavbar } from "../../../redux/actions/utils.action";
 import { Capitalize } from "../../../utils/data";
 import { Icon, Title } from "../../atoms";
@@ -7,9 +9,16 @@ import SidenavTitle from "./container/SidenavTitle";
 import { NAVCONTENTS } from "./data";
 
 const SideNav = ({ dispatch, navbar }) => {
+  const navigate = useNavigate();
+  const currentPath = useCurrentPath(
+    NAVCONTENTS.map((nav) => ({ path: nav.link }))
+  );
+
+  console.log(currentPath)
+
   const onHandleNavbar = () => dispatch(toggleNavbar());
 
-  const onHandleIcon = (link) => console.log(link);
+  const onHandleIcon = (link) => navigate(link);
 
   return (
     <div
@@ -20,9 +29,17 @@ const SideNav = ({ dispatch, navbar }) => {
       <SidenavTitle navbar={navbar} onHandleNavbar={onHandleNavbar} />
       <div>
         {NAVCONTENTS.map(({ title, link, icon }, index) => (
-          <div className="header__nav" key={index} onClick={onHandleIcon.bind(this, link)}>
+          <div
+            className="header__nav"
+            key={index}
+            onClick={onHandleIcon.bind(this, link)}
+          >
             <Icon name={icon} />
-            <Title className="u-margin-left-10" variant="alr-20-1">{Capitalize(title)}</Title>
+            {navbar && (
+              <Title className="u-margin-left-10" variant="alr-20-1">
+                {Capitalize(title)}
+              </Title>
+            )}
           </div>
         ))}
       </div>
