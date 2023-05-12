@@ -4,6 +4,8 @@ import { encryptTransform } from "redux-persist-transform-encrypt";
 import storage from "redux-persist/lib/storage";
 import thunk from "redux-thunk";
 import logger from "redux-logger";
+import authReducer from "../reducers/auth.reducer";
+import utilsReducer from "../reducers/utils.reducer";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -22,7 +24,13 @@ const persistConfig = {
 };
 
 const store = createStore(
-  persistReducer(persistConfig, combineReducers({})),
+  persistReducer(
+    persistConfig,
+    combineReducers({
+      auth: authReducer,
+      utils: utilsReducer,
+    })
+  ),
   composeEnhancers(applyMiddleware(thunk, logger))
 );
 

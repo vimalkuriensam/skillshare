@@ -10,11 +10,9 @@ const Input = ({
   placeholder = "Enter Text",
   className,
   type = "text",
-  refCallback,
   ...rest
 }) => {
   const ref = useRef();
-
   const onChangeNumber = (val) => {
     let value;
     if (val > 0) value = +ref.current.value + 1;
@@ -76,7 +74,8 @@ const Input = ({
       onChange={onHandleText}
       className={`form__input-${variant} ${className}`}
       type={type}
-      ref={refCallback}
+      // required
+      // pattern="[a-zA-Z0-9\W]+"
       {...rest}
     />
   );

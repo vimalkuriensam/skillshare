@@ -22,8 +22,16 @@
     opacity: 0.75;
   }
 
+  &__inputError {
+    border: 1px solid rgb(183, 3, 3) !important;
+    color: rgb(183, 3, 3) !important;
+    &::placeholder {
+      color: rgb(183, 3, 3) !important;
+    }
+  }
+
   &__input-1 {
-    height: 6.5rem;
+    height: 5.5rem;
     width: 100%;
     border-radius: 1rem;
     background: $color-white;
@@ -157,84 +165,6 @@
   &__calendarGroup {
     &--text {
       margin: 1rem 0;
-    }
-  }
-
-  &__calendar {
-    cursor: pointer;
-    position: relative;
-    display: inline-block;
-    width: 100%;
-
-    &--date {
-      height: 3.5rem;
-      min-width: 20rem;
-      background: $color-grey-light-1;
-      border: 1px solid $color-grey-light-2;
-      border-radius: 0.5rem;
-      padding: 0.4rem 1rem;
-      overflow: hidden;
-      > div {
-        color: #495057;
-        font-family: "roboto-medium";
-        font-size: 1.6rem;
-      }
-    }
-
-    &--icon {
-      position: absolute;
-      top: 45%;
-      right: 1rem;
-      transform: translateY(-50%);
-      > div > svg {
-        height: 2rem !important;
-      }
-    }
-  }
-
-  &__search {
-    display: flex;
-    position: relative;
-
-    &--2 {
-      border-radius: 1rem;
-      border: 1px solid rgb(201, 204, 215);
-    }
-
-    &--icon {
-      margin-right: 0.5rem;
-      margin-top: 0.5rem;
-      height: 3.5rem;
-      fill: $color-grey-dark;
-    }
-
-    &--icon2 {
-      margin-right: 0.5rem;
-      margin-top: 0.5rem;
-      height: 3.5rem;
-      background: $color-primary;
-      stroke: $color-white;
-      stroke-width: 2;
-    }
-
-    &--icon5 {
-      // margin-right: 0.5rem;
-      // margin-top: 0.5rem;
-      height: 2rem;
-      width: 2rem;
-      stroke: #b9b9b9;
-      stroke-width: 1;
-      position: absolute;
-      fill: black;
-      right: 1rem;
-      top: 50%;
-      transform: translateY(-50%);
-    }
-
-    &--input {
-      &::placeholder {
-        font-size: 1.4rem;
-      }
     }
   }
 
@@ -459,16 +389,17 @@
       &::after {
         content: "\1F5F8";
         color: $color-white;
-        padding: 0 0.3rem;
         display: block;
         height: 1.7rem;
         width: 1.7rem;
-        padding: 0rem 0.4rem;
         @include absCenter;
+        top: 40%;
         font-weight: 700;
-        background-color: $color-tertiary;
+        background-color: #fea23c;
         opacity: 0;
         transition: opacity 0.2s;
+        padding-bottom: 2rem;
+        padding-left: 0.2rem;
       }
     }
 
@@ -477,46 +408,50 @@
     }
   }
 
-  &__progress {
+  &__inputGroup {
     position: relative;
-    width: 100%;
-    height: 1rem;
-    border-radius: 0.8rem;
-    background-image: linear-gradient(
-      to right,
-      $color-primary 0%,
-      $color-primary var(--set-progress),
-      #c8eaf5 var(--set-progress)
-    );
+    transition: all 0.3s;
+  }
 
-    &--label {
-      position: absolute;
-      top: -2.7rem;
-      width: 3rem;
-      height: 2.2rem;
-      background: $color-primary;
-      color: $color-white;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      border-radius: 0.8rem;
-      padding: 0.3rem;
-      transform: translateX(50%);
-      animation: pointer-jump 0.7s ease infinite;
+  &__inputTitle {
+    position: absolute;
+    top: 50%;
+    left: 2rem;
+    transform: translateY(-50%);
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.3s;
+    background: white;
+    padding: 0 0.5rem;
+
+    &--showInput {
+      top: 0 !important;
+      left: 2rem !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+      transition: all 0.3s !important;
     }
 
-    &--pointer {
-      clip-path: polygon(0 0, 100% 0, 50% 100%);
+    &--errorText {
       position: absolute;
-      width: 0.3rem;
-      height: 0.3rem;
-      bottom: -3px;
-      background: $color-primary;
-      left: 50%;
-      transform: translateX(-50%);
+      top: 5.5rem;
+      left: 2rem;
+      z-index: 100;
+    }
+
+    &--error {
+      color: rgb(183, 3, 3) !important;
     }
   }
 }
+
+// .form__inputGroup > input:valid ~ .form__inputTitle {
+//   top: 0;
+//   left: 2rem;
+//   visibility: visible;
+//   opacity: 1;
+//   transition: all 0.3s;
+// }
 
 @keyframes pointer-jump {
   0% {
