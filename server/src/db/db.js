@@ -28,9 +28,37 @@ const createTables = async () => {
 const insertCountryAndCity = async () => {
   try {
     const resp = await fs.readFile("src/db/data/countries.json");
-    console.log("resp", JSON.parse(resp));
+    const parsedResponse = JSON.parse(resp);
+    let countries = "";
+    let cities = "";
+    Object.keys(parsedResponse).map((country, index) => {
+      if (!index) countries += `'${country}')`;
+      else countries += `, ('${country}')`;
+    });
+    const countryQuery = `${DATA.INSERT_COUNTRIES}${countries} ON CONFLICT DO NOTHING;`;
+    const cResp = await pool.query(countryQuery);
+    if (cResp) {
+      Object.keys(parsedResponse).map(async (country) => {
+        const { rows } = await pool.query(
+          `SELECT id FROM countries WHERE name = '${country}'`
+        );
+        const countryId = rows[0]["id"];
+        const parsedCities = parsedResponse[country]["cities"];
+        parsedCities.forEach((city, index) => {
+          if (!index) cities += `'${city}', ${countryId})`;
+          else cities += `, ('${city}', ${countryId})`;
+        });
+        const cityQuery = `${DATA.INSERT_CITIES}${cities} ON CONFLICT DO NOTHING;`;
+        const c2Resp = await pool.query(cityQuery);
+        if (c2Resp) {
+          console.log("COUNTRY AND CITY DATA ADDED SUCCESSFULLY...")
+          return true;
+        }
+      });
+    }
   } catch (e) {
     console.log(e.message);
+    throw { message: e.message };
   }
 };
 

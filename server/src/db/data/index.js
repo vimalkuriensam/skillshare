@@ -31,6 +31,8 @@ const DATA = {
     country_id INT NOT NULL,
     FOREIGN KEY(country_id) REFERENCES countries(id)
   )`,
+  INSERT_COUNTRIES: `INSERT INTO countries (name) VALUES (`,
+  INSERT_CITIES: `INSERT INTO cities (name, country_id) VALUES (`,
   INSERT_USER: `INSERT INTO users(username, email, password)
                 VALUES ($1, $2, $3);`,
   GET_USER_USERNAME: `SELECT * FROM users
