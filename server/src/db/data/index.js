@@ -16,8 +16,8 @@ const DATA = {
         address_line1 VARCHAR(50),
         address_line2 VARCHAR(50),
         city_id INT,
-        pincode INT,
-        user_id INT,
+        pincode VARCHAR(10),
+        user_id INT UNIQUE,
         FOREIGN KEY(user_id) REFERENCES users(id)
     );`,
 
@@ -35,10 +35,27 @@ const DATA = {
   INSERT_CITIES: `INSERT INTO cities (name, country_id) VALUES (`,
   INSERT_USER: `INSERT INTO users(username, email, password)
                 VALUES ($1, $2, $3);`,
+  INSERT_BASIC_INFO: `UPDATE users
+                      SET first_name = $1,
+                          middle_name = $2,
+                          last_name = $3,
+                          dob = $4,
+                          phone = $5
+                      WHERE id = $6
+                      RETURNING *`,
+  INSERT_ADDRESS_INFO: `INSERT INTO address (address_line1, address_line2, city_id, pincode, user_id)
+                        VALUES ($1, $2, $3, $4, $5)
+                        ON CONFLICT (user_id) DO UPDATE
+                        SET address_line1 = $1,
+                            address_line2 = $2,
+                            city_id = $3,
+                            pincode = $4,
+                            user_id = EXCLUDED.user_id
+                        RETURNING *`,
   GET_USER_USERNAME: `SELECT * FROM users
                       WHERE username = $1`,
   GET_USER_ID: `SELECT * FROM users
-                WHERE user_id = $1`,
+                WHERE id = $1`,
   GET_COUNTRIES: `SELECT * FROM countries`,
   GET_CITIES: `SELECT * FROM cities
                WHERE country_id = $1`,

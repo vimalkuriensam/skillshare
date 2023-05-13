@@ -1,11 +1,16 @@
 const express = require("express");
 
-const { GetCityController, GetCountryController } = require("../controllers/profile.controller");
+const {
+  GetCityController,
+  GetCountryController,
+  InsertBasicInfo,
+} = require("../controllers/profile.controller");
 const { Auth } = require("../middleware/Auth");
 
 const router = express.Router();
 
 router.get("/city/:id", Auth, GetCityController);
 router.get("/country", Auth, GetCountryController);
+router.post("/add-basic-info", Auth, InsertBasicInfo);
 
 module.exports = { router };

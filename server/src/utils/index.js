@@ -7,4 +7,16 @@ const generateAuthToken = ({ ...stmts }) =>
 const passwordMatch = async ({ password, hashedPassword }) =>
   await bcrypt.compare(password, hashedPassword);
 
-module.exports = { generateAuthToken, passwordMatch };
+const FIELDS = {
+  BASIC_INFO: [
+    "firstName",
+    "lastName",
+    "dob",
+    "phone",
+    "addressLine1",
+    "city",
+    "pincode",
+  ],
+};
+
+module.exports = { generateAuthToken, passwordMatch, FIELDS };

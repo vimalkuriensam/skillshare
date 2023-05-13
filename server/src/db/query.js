@@ -13,7 +13,7 @@ const InsertUser = async ({ username, password, email }) => {
     if (result) {
       const user = await SearchUserByUsername({ username });
       const token = generateAuthToken({
-        id: user.user_id,
+        id: user.id,
         username: user.username,
       });
       return { user, token };
@@ -87,7 +87,50 @@ const GetCities = async ({ id }) => {
   }
 };
 
+const AddBasicInfo = async (values) => {
+  try {
+    const {
+      id,
+      firstName,
+      middleName = "",
+      lastName,
+      dob,
+      phone,
+      addressLine1,
+      addressLine2,
+      city,
+      pincode,
+    } = values;
+    const {
+      rows: [user],
+    } = await pool.query(DATA.INSERT_BASIC_INFO, [
+      firstName,
+      middleName,
+      lastName,
+      dob,
+      phone,
+      id,
+    ]);
+    if (user) {
+      delete user["password"];
+      const {
+        rows: [address],
+      } = await pool.query(DATA.INSERT_ADDRESS_INFO, [
+        addressLine1,
+        addressLine2,
+        city,
+        pincode,
+        id,
+      ]);
+      return { user, address };
+    } else throw { message: "SQL ERROR OCCURED..."}
+  } catch (e) {
+    throw e;
+  }
+};
+
 module.exports = {
+  AddBasicInfo,
   InsertUser,
   SearchUserByUsername,
   SearchUserById,

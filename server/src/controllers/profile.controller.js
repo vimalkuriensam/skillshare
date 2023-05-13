@@ -1,4 +1,5 @@
-const { GetCountries, GetCities } = require("../db/query");
+const { GetCountries, GetCities, AddBasicInfo } = require("../db/query");
+const { FIELDS } = require("../utils");
 
 const GetCountryController = async (req, res) => {
   try {
@@ -20,4 +21,25 @@ const GetCityController = async (req, res) => {
   }
 };
 
-module.exports = { GetCountryController, GetCityController };
+const InsertBasicInfo = async (req, res) => {
+  try {
+    const bodyParams = req.body;
+    const id = req.user.id;
+    const fieldCheck = FIELDS.BASIC_INFO.map((field) =>
+      !!bodyParams[field] ? null : field
+    ).filter((val) => !!val);
+    if (fieldCheck.length)
+      throw {
+        message: {
+          message: "MANDATORY FIELDS MISSING",
+          missingFields: fieldCheck,
+        },
+      };
+    const { user, address } = await AddBasicInfo({ ...bodyParams, id });
+    res.send({ message: "PROFILE UPDATED", user: { ...user, ...address } });
+  } catch (e) {
+    res.status(500).send({ error: e.message });
+  }
+};
+
+module.exports = { GetCountryController, GetCityController, InsertBasicInfo };

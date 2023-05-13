@@ -51,7 +51,7 @@ const insertCountryAndCity = async () => {
         const cityQuery = `${DATA.INSERT_CITIES}${cities} ON CONFLICT DO NOTHING;`;
         const c2Resp = await pool.query(cityQuery);
         if (c2Resp) {
-          console.log("COUNTRY AND CITY DATA ADDED SUCCESSFULLY...")
+          console.log("COUNTRY AND CITY DATA ADDED SUCCESSFULLY...");
           return true;
         }
       });
