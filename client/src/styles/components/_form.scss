@@ -274,14 +274,14 @@
   &__dropdown-1 {
     position: relative;
     width: 100%;
-    height: 4rem;
+    height: 5rem;
     &--value {
       background: $color-white;
       cursor: pointer;
       width: 100%;
       height: 100%;
       border: 1px solid $color-grey-light-1;
-      padding: 1rem 0 1rem 0.8rem;
+      padding: 1rem 0 1rem 1.5rem;
       overflow: hidden;
       display: flex;
       align-items: center;

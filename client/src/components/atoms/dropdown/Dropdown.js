@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Button from "../button/Button";
 import Text from "../text/Text";
 import Input from "../input/Input";
+import { Title } from "../title";
 
 const Dropdown = ({
   contents,
@@ -54,7 +55,11 @@ const Dropdown = ({
     <div className={`form__dropdown-1 ${className}`} ref={menuRef}>
       <div className="form__dropdown-1--value" onClick={onHandleListToggle}>
         <span>
-          <Text variant="r-14-400-2">{val || placeholder}</Text>
+          {val ? (
+            <Text variant="r-14-400-2">{val}</Text>
+          ) : (
+            <Text variant="ss-18-1">{placeholder}</Text>
+          )}
         </span>
         <span>
           <Button variant="2-1" icon="ArrowDown" content="" />

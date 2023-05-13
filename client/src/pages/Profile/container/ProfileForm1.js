@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { FormInput } from "../../../components";
+import { Dropdown, FormInput } from "../../../components";
 
 const ProfileForm1 = ({ userValue, onHandleValue = () => {} }) => {
   return (
@@ -77,21 +77,19 @@ const ProfileForm1 = ({ userValue, onHandleValue = () => {} }) => {
       </div>
       <div className="row">
         <div className="col-1-of-3">
-          <FormInput
-            title="City"
+          <Dropdown
             placeholder="City"
-            variant="2"
-            onHandleText={onHandleValue.bind(this, "city")}
             value={userValue.city}
+            onHandleDropdownValue={onHandleValue.bind(this, "city")}
+            variant="1"
           />
         </div>
         <div className="col-1-of-3">
-          <FormInput
-            title="Country"
+          <Dropdown
             placeholder="Country"
-            variant="2"
-            onHandleText={onHandleValue.bind(this, "country")}
             value={userValue.country}
+            onHandleDropdownValue={onHandleValue.bind(this, "country")}
+            variant="1"
           />
         </div>
         <div className="col-1-of-3">

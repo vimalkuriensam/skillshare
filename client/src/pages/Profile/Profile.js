@@ -30,7 +30,6 @@ const Profile = () => {
       <div className="profile__formContainer">
         <ProfileForm1 userValue={userValue} onHandleValue={onHandleValue} />
       </div>
-      <Dropdown contents={["a", "b", "c"]} />
     </section>
   );
 };
