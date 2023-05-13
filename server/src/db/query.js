@@ -68,9 +68,20 @@ const VerifyCredentials = async ({ username, password }) => {
   }
 };
 
+const GetCountries = async () => {
+  try {
+    const { rows: countries } = await pool.query(DATA.GET_COUNTRIES);
+    if (!countries) return { countries: [] };
+    return { countries };
+  } catch (e) {
+    throw e;
+  }
+};
+
 module.exports = {
   InsertUser,
   SearchUserByUsername,
   SearchUserById,
   VerifyCredentials,
+  GetCountries,
 };
