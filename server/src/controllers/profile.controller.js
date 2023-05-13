@@ -1,4 +1,9 @@
-const { GetCountries, GetCities, AddBasicInfo } = require("../db/query");
+const {
+  GetCountries,
+  GetCities,
+  AddBasicInfo,
+  GetAddress,
+} = require("../db/query");
 const { FIELDS } = require("../utils");
 
 const GetCountryController = async (req, res) => {
@@ -42,4 +47,22 @@ const InsertBasicInfo = async (req, res) => {
   }
 };
 
-module.exports = { GetCountryController, GetCityController, InsertBasicInfo };
+const GetBasicInfo = async (req, res) => {
+  try {
+    const id = req.user.id;
+    const { address } = await GetAddress({ id });
+    res.send({
+      message: "USER DETAILS FETCHED",
+      user: { ...req.user, ...address },
+    });
+  } catch (e) {
+    res.status(500).send({ error: e.message });
+  }
+};
+
+module.exports = {
+  GetCountryController,
+  GetCityController,
+  InsertBasicInfo,
+  GetBasicInfo,
+};

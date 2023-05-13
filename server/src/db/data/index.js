@@ -52,6 +52,8 @@ const DATA = {
                             pincode = $4,
                             user_id = EXCLUDED.user_id
                         RETURNING *`,
+  GET_ADDRESS: `SELECT * FROM address
+                WHERE user_id = $1`,
   GET_USER_USERNAME: `SELECT * FROM users
                       WHERE username = $1`,
   GET_USER_ID: `SELECT * FROM users

@@ -123,7 +123,18 @@ const AddBasicInfo = async (values) => {
         id,
       ]);
       return { user, address };
-    } else throw { message: "SQL ERROR OCCURED..."}
+    } else throw { message: "SQL ERROR OCCURED..." };
+  } catch (e) {
+    throw e;
+  }
+};
+
+const GetAddress = async ({ id }) => {
+  try {
+    const {
+      rows: [address],
+    } = await pool.query(DATA.GET_ADDRESS, [id]);
+    return { address };
   } catch (e) {
     throw e;
   }
@@ -135,6 +146,7 @@ module.exports = {
   SearchUserByUsername,
   SearchUserById,
   VerifyCredentials,
+  GetAddress,
   GetCountries,
   GetCities,
 };
