@@ -5,6 +5,7 @@ import {
   Auth as AuthPage,
   Dashboard as DashboardPage,
   Login as LoginPage,
+  Profile as ProfilePage,
   Signup as SignupPage,
 } from "../pages";
 import customHistory from "../utils/history/history";
@@ -17,7 +18,7 @@ const AppRoutes = () => {
       <Loader />
       <div className="header__container">
         <SideNav />
-        <div>
+        <div className="u-width-100">
           <Header />
           <Routes>
             <Route path="/" element={<Navigate to="/dashboard" replace />} />
@@ -26,6 +27,14 @@ const AppRoutes = () => {
               element={
                 <PrivateRoute>
                   <DashboardPage />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/profile"
+              element={
+                <PrivateRoute>
+                  <ProfilePage />
                 </PrivateRoute>
               }
             />
