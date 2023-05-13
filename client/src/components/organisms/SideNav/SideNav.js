@@ -14,8 +14,6 @@ const SideNav = ({ dispatch, navbar }) => {
     NAVCONTENTS.map((nav) => ({ path: nav.link }))
   );
 
-  console.log(currentPath)
-
   const onHandleNavbar = () => dispatch(toggleNavbar());
 
   const onHandleIcon = (link) => navigate(link);
@@ -27,10 +25,14 @@ const SideNav = ({ dispatch, navbar }) => {
       }`}
     >
       <SidenavTitle navbar={navbar} onHandleNavbar={onHandleNavbar} />
-      <div>
+      <div className="u-margin-top-30">
         {NAVCONTENTS.map(({ title, link, icon }, index) => (
           <div
-            className="header__nav"
+            className={`header__nav ${
+              currentPath && currentPath == link
+                ? "header__nav--active"
+                : "header__nav--inactive"
+            }`}
             key={index}
             onClick={onHandleIcon.bind(this, link)}
           >
