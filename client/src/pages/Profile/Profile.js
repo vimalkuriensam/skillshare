@@ -1,10 +1,21 @@
 import React, { useState } from "react";
 import { FormInput, Stepper } from "../../components";
+import ProfileForm1 from "./container/ProfileForm1";
 
 const Profile = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [userValue, setUserValue] = useState({
     firstName: "",
+    middleName: "",
+    lastName: "",
+    dob: "",
+    email: "",
+    phone: "",
+    addressLine1: "",
+    addressLine2: "",
+    city: "",
+    country: "",
+    pincode: "",
   });
   const onHandleValue = (key, { target: { value } }) => {
     setUserValue((prevState) => ({ ...prevState, [key]: value }));
@@ -15,13 +26,9 @@ const Profile = () => {
         steps={["Basic Info", "Work Experience", "Skills", "Languages"]}
         currentStep={currentStep}
       />
-      {/* <FormInput
-        title="First Name"
-        placeholder="First Name"
-        variant="2"
-        onHandleText={onHandleValue.bind(this, "firstName")}
-        value={userValue.firstName}
-      /> */}
+      <div className="profile__formContainer">
+        <ProfileForm1 userValue={userValue} onHandleValue={onHandleValue} />
+      </div>
     </section>
   );
 };
