@@ -6,6 +6,7 @@ import {
   Dashboard as DashboardPage,
   Login as LoginPage,
   Profile as ProfilePage,
+  Settings as SettingsPage,
   Signup as SignupPage,
 } from "../pages";
 import customHistory from "../utils/history/history";
@@ -35,6 +36,14 @@ const AppRoutes = () => {
               element={
                 <PrivateRoute>
                   <ProfilePage />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/settings"
+              element={
+                <PrivateRoute>
+                  <SettingsPage />
                 </PrivateRoute>
               }
             />
