@@ -20,7 +20,6 @@
     padding: 1.4rem;
     opacity: 0.8;
     font-size: 2rem;
-    background: $color-primary;
     -webkit-transition: all 1s ease-out;
     -moz-transition: all 1s ease-out;
     -o-transition: all 1s ease-out;
@@ -69,14 +68,19 @@
     }
   }
 
-  &--2 {
+  &--2-1 {
     height: 5.4rem;
     min-width: 6rem;
-    border-radius: 0.8rem;
+    background: $color-white;
     opacity: 0.8;
     display: flex;
     justify-content: center;
     align-items: center;
+    border: 1px solid $color-grey-light-1;
+    transition: all 0.3s;
+    &:hover {
+      background: darken($color-white, 4%);
+    }
   }
 
   &--3 {

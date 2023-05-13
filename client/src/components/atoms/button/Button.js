@@ -1,11 +1,12 @@
 import React from "react";
+import { Icon } from "../icon";
 
 const Button = ({
   variant = "1-1",
   content = "Default",
   onButtonClick,
   className,
-  icon = "Plus",
+  icon = null,
   ...rest
 }) => {
   return (
@@ -14,6 +15,7 @@ const Button = ({
       onClick={onButtonClick}
       {...rest}
     >
+      {icon && <Icon name={icon} />}
       {content && <span>{content}</span>}
     </button>
   );
