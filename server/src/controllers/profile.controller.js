@@ -1,4 +1,4 @@
-const { GetCountries } = require("../db/query");
+const { GetCountries, GetCities } = require("../db/query");
 
 const GetCountryController = async (req, res) => {
   try {
@@ -11,6 +11,10 @@ const GetCountryController = async (req, res) => {
 
 const GetCityController = async (req, res) => {
   try {
+    const id = req.params?.id;
+    if (!id) throw { error: "country id not provided" };
+    const { cities } = await GetCities({ id });
+    res.status(200).send({ message: "CITIES FETCHED", cities });
   } catch (e) {
     res.status(500).send({ error: e.message });
   }

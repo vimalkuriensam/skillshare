@@ -40,6 +40,8 @@ const DATA = {
   GET_USER_ID: `SELECT * FROM users
                 WHERE user_id = $1`,
   GET_COUNTRIES: `SELECT * FROM countries`,
+  GET_CITIES: `SELECT * FROM cities
+               WHERE country_id = $1`,
 };
 
 module.exports = { DATA };

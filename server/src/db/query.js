@@ -78,10 +78,20 @@ const GetCountries = async () => {
   }
 };
 
+const GetCities = async ({ id }) => {
+  try {
+    const { rows: cities } = await pool.query(DATA.GET_CITIES, [id]);
+    return { cities };
+  } catch (e) {
+    throw e;
+  }
+};
+
 module.exports = {
   InsertUser,
   SearchUserByUsername,
   SearchUserById,
   VerifyCredentials,
   GetCountries,
+  GetCities,
 };
