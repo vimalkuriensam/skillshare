@@ -9,6 +9,7 @@ import {
 import { addBasicInfo } from "../../redux/actions/profile.action";
 import ProfileAction from "./container/ProfileAction";
 import ProfileForm1 from "./container/ProfileForm1";
+import ProfileForm4 from "./container/ProfileForm4";
 import { PROFILE_MANDATORY_FIELDS } from "./data";
 
 const Profile = ({ dispatch, countries = [], cities = [], user = {} }) => {
@@ -27,6 +28,23 @@ const Profile = ({ dispatch, countries = [], cities = [], user = {} }) => {
     city: "" || user?.city,
     country: "",
     pincode: "" || user?.pincode,
+    workExperience: [
+      {
+        companyName: "",
+        startDate: "",
+        endDate: "",
+        current: false,
+        city: "",
+        summary: "",
+      },
+    ],
+    skills: [
+      {
+        skill: "",
+        proficiency: "",
+      },
+    ],
+    languages: [{ language: "", proficiency: "" }],
   });
 
   const [errorValue, setErrorValue] = useState({
@@ -101,20 +119,29 @@ const Profile = ({ dispatch, countries = [], cities = [], user = {} }) => {
     }
   };
 
+  const getForm = () => {
+    switch (user.info_state) {
+      case 1:
+        return (
+          <ProfileForm1
+            userValue={userValue}
+            errors={errorValue}
+            displayValues={displayValues}
+            onHandleValue={onHandleValue}
+          />
+        );
+      case 4:
+        return <ProfileForm4 />;
+    }
+  };
+
   return (
     <section className="section-profile">
       <Stepper
         steps={["Basic Info", "Work Experience", "Skills", "Languages"]}
         currentStep={currentStep}
       />
-      <div className="profile__formContainer">
-        <ProfileForm1
-          userValue={userValue}
-          errors={errorValue}
-          displayValues={displayValues}
-          onHandleValue={onHandleValue}
-        />
-      </div>
+      <div className="profile__formContainer">{getForm()}</div>
       <ProfileAction onSubmitForm={onHandleSubmit} />
     </section>
   );
