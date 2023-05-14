@@ -17,6 +17,7 @@ const FIELDS = {
     "city",
     "pincode",
   ],
+  WORK_EXPERIENCE: ["companyName", "startDate", "current", "city"],
 };
 
 module.exports = { generateAuthToken, passwordMatch, FIELDS };

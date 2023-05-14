@@ -1,8 +1,10 @@
 const {
+  AddWorkExperience,
   GetCountries,
   GetCities,
   AddBasicInfo,
   GetAddress,
+  GetWorkExperience,
 } = require("../db/query");
 const { FIELDS } = require("../utils");
 
@@ -60,9 +62,45 @@ const GetBasicInfo = async (req, res) => {
   }
 };
 
+const InsertWorkExperience = async (req, res) => {
+  try {
+    const id = req.user.id;
+    const { workExperience = null } = req.body;
+    if (!workExperience)
+      throw { message: "Please provide work experience field" };
+    if (workExperience.constructor.name != "Array")
+      throw { message: "INVALID WORK EXPERIENCE FORMAT" };
+    workExperience.forEach((exp, index) => {
+      const fieldCheck = FIELDS.WORK_EXPERIENCE.map((field) =>
+        exp[field] == null || exp[field] == undefined ? field : null
+      ).filter((val) => !!val);
+      if (fieldCheck.length)
+        throw {
+          message: {
+            message: "MANDATORY FIELDS MISSING",
+            missingFields: fieldCheck,
+            index,
+          },
+        };
+    });
+    const resp = await AddWorkExperience({ workExperience, id });
+    if (resp) {
+      const { address } = await GetAddress({ id });
+      const { workExperience } = await GetWorkExperience({ id });
+      res.send({
+        message: "WORK EXPERIENCES ADDED",
+        user: { ...req.user, ...address, workExperience },
+      });
+    }
+  } catch (e) {
+    res.status(500).send({ error: e.message });
+  }
+};
+
 module.exports = {
   GetCountryController,
   GetCityController,
   InsertBasicInfo,
   GetBasicInfo,
+  InsertWorkExperience,
 };

@@ -66,6 +66,14 @@ const DATA = {
                             pincode = $4,
                             user_id = EXCLUDED.user_id
                         RETURNING *`,
+  INSERT_WORK_EXPERIENCE: `INSERT INTO work_experience (
+                            company_name, 
+                            start_date, 
+                            end_date, 
+                            current, 
+                            city_id, 
+                            user_id) 
+                          VALUES (`,
   GET_ADDRESS: `SELECT * FROM address
                 WHERE user_id = $1`,
   GET_USER_USERNAME: `SELECT * FROM users
@@ -75,6 +83,8 @@ const DATA = {
   GET_COUNTRIES: `SELECT * FROM countries`,
   GET_CITIES: `SELECT * FROM cities
                WHERE country_id = $1`,
+  GET_WORK_EXPERIENCE: `SELECT * FROM work_experience WHERE user_id = $1;`,
+  DELETE_WORK_EXPERIENCE: `DELETE FROM work_experience WHERE user_id = $1;`
 };
 
 module.exports = { DATA };

@@ -140,6 +140,38 @@ const GetAddress = async ({ id }) => {
   }
 };
 
+const AddWorkExperience = async ({ workExperience = [], id }) => {
+  try {
+    let exp = "";
+    workExperience.forEach(
+      ({ companyName, startDate, endDate, current, city }, index) => {
+        if (!index)
+          exp += `'${companyName}', '${startDate}', '${endDate}', '${current}', '${city}', '${id}')`;
+        else
+          exp += `, ('${companyName}', '${startDate}', '${endDate}', '${current}', '${city}', '${id}' )`;
+      }
+    );
+    exp = `${DATA.INSERT_WORK_EXPERIENCE}${exp};`;
+    const deleteResp = await pool.query(DATA.DELETE_WORK_EXPERIENCE, [id]);
+    if (deleteResp) {
+      const resp = await pool.query(exp);
+      if (resp) return true;
+      else throw { message: "ERROR_ADDING_WORK_EXPERIENCES" };
+    } else throw { message: "ERROR_DELETING_WORK_EXPERIENCES" };
+  } catch (e) {
+    throw e;
+  }
+};
+
+const GetWorkExperience = async ({ id }) => {
+  try {
+    const { rows = [] } = await pool.query(DATA.GET_WORK_EXPERIENCE, [id]);
+    return { workExperience: rows };
+  } catch (e) {
+    throw e;
+  }
+};
+
 module.exports = {
   AddBasicInfo,
   InsertUser,
@@ -149,4 +181,6 @@ module.exports = {
   GetAddress,
   GetCountries,
   GetCities,
+  AddWorkExperience,
+  GetWorkExperience,
 };
