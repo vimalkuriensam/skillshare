@@ -19,6 +19,7 @@ const createTables = async () => {
     await createUsers();
     await createAddress();
     await insertCountryAndCity();
+    await createWorkExperience();
   } catch (e) {
     console.log(e.message);
     await pool.end();
@@ -85,6 +86,19 @@ const createUsers = async () => {
   } catch (e) {
     console.log(e.message);
     throw { message: e.message };
+  }
+};
+
+const createWorkExperience = async () => {
+  try {
+    const res = await pool.query(DATA.CREATE_TABLE_WORKEXPERIENCE);
+    if (res?.command) {
+      console.log("WORK EXPERIENCE TABLE CREATED OR ALREADY EXIST...");
+      return true;
+    }
+  } catch (e) {
+    console.log(e.message);
+    return false;
   }
 };
 

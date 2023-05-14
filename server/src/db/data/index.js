@@ -28,11 +28,22 @@ const DATA = {
     name VARCHAR(20) UNIQUE NOT NULL
   )`,
   CREATE_TABLE_CITIES: `CREATE TABLE IF NOT EXISTS cities(
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(20) UNIQUE NOT NULL,
-    country_id INT NOT NULL,
-    FOREIGN KEY(country_id) REFERENCES countries(id)
-  )`,
+                        id SERIAL PRIMARY KEY,
+                        name VARCHAR(20) UNIQUE NOT NULL,
+                        country_id INT NOT NULL,
+                        FOREIGN KEY(country_id) REFERENCES countries(id)
+                      )`,
+  CREATE_TABLE_WORKEXPERIENCE: `CREATE TABLE IF NOT EXISTS work_experience(
+                        id SERIAL PRIMARY KEY,
+                        company_name VARCHAR(50) NOT NULL,
+                        start_date DATE NOT NULL,
+                        end_date DATE,
+                        current BOOLEAN DEFAULT false NOT NULL,
+                        city_id INT NOT NULL,
+                        user_id INT NOT NULL,
+                        FOREIGN KEY(city_id) REFERENCES cities(id),
+                        FOREIGN KEY(user_id) REFERENCES users(id)
+                      );`,
   INSERT_COUNTRIES: `INSERT INTO countries (name) VALUES (`,
   INSERT_CITIES: `INSERT INTO cities (name, country_id) VALUES (`,
   INSERT_USER: `INSERT INTO users(username, email, password)

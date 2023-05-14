@@ -16,7 +16,7 @@ import { PROFILE_MANDATORY_FIELDS } from "./data";
 
 const Profile = ({ dispatch, countries = [], cities = [], user = {} }) => {
   const [currentStep, setCurrentStep] = useState(
-    3//parseInt(user.info_state) || 1
+    parseInt(user.info_state) || 1
   );
   const [userValue, setUserValue] = useState({
     firstName: "" || user?.first_name,
@@ -71,10 +71,10 @@ const Profile = ({ dispatch, countries = [], cities = [], user = {} }) => {
     dispatch(getUserInfo());
     dispatch(getCountries());
   }, []);
-  
-  // useEffect(() => {
-  //   if (user.info_state != currentStep) setCurrentStep(3); //user.info_state
-  // }, [user.info_state]);
+
+  useEffect(() => {
+    if (user.info_state != currentStep) setCurrentStep(user.info_state);
+  }, [user.info_state]);
 
   useEffect(() => {
     setDisplayValues((prevState) => ({
