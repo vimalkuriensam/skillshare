@@ -2,4 +2,10 @@
   &__formContainer {
     margin-top: 3rem;
   }
+
+  &__action {
+    > * {
+      margin-top: 2rem;
+    }
+  }
 }

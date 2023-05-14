@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { FormInput, Stepper } from "../../components";
+import { Button, FormInput, Stepper } from "../../components";
 import Dropdown from "../../components/atoms/dropdown/Dropdown";
+import ProfileAction from "./container/ProfileAction";
 import ProfileForm1 from "./container/ProfileForm1";
 
 const Profile = () => {
@@ -30,6 +31,7 @@ const Profile = () => {
       <div className="profile__formContainer">
         <ProfileForm1 userValue={userValue} onHandleValue={onHandleValue} />
       </div>
+      <ProfileAction />
     </section>
   );
 };
