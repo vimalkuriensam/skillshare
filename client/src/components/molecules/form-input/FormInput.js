@@ -23,7 +23,10 @@ const FormInput = ({
         />
       )}
       {error && (
-        <Text className="form__inputTitle--errorText" variant="error-12">
+        <Text
+          className={`form__inputTitle--errorText  form__inputTitle--errorText-${variant}`}
+          variant="error-12"
+        >
           {error}
         </Text>
       )}
@@ -32,7 +35,7 @@ const FormInput = ({
           variant="pr-16-1"
           className={`form__inputTitle ${
             rest?.value ? "form__inputTitle--showInput" : ""
-          } ${error ? "form__inputTitle--error" : ""}`}
+          } ${error ? `form__inputTitle--error` : ""}`}
         >
           {title}
         </Title>

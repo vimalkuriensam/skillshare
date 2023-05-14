@@ -109,3 +109,17 @@ export const setCity = ({ city = [] }) => ({
 });
 
 export const deleteCity = () => ({ type: DELETE_CITY });
+
+export const getUserInfo = () => async (dispatch) => {
+  try {
+    const { data, status } = await apiService().get(
+      `/api/v1/profile/get-user-info`
+    );
+    if (status == 200) {
+      dispatch(deleteUser());
+      dispatch(setUser({ user: data["data"]["user"] }));
+    }
+  } catch (e) {
+    console.log(e.message);
+  }
+};

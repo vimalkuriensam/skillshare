@@ -1,8 +1,9 @@
 import React, { Fragment } from "react";
-import { Dropdown, FormInput } from "../../../components";
+import { Calendar, Dropdown, FormInput } from "../../../components";
 
 const ProfileForm1 = ({
   userValue,
+  errors,
   displayValues = [],
   onHandleValue = () => {},
 }) => {
@@ -14,6 +15,7 @@ const ProfileForm1 = ({
             title="First Name"
             placeholder="First Name"
             variant="2"
+            error={errors?.firstName}
             onHandleText={onHandleValue.bind(this, "firstName")}
             value={userValue.firstName}
           />
@@ -32,6 +34,7 @@ const ProfileForm1 = ({
             title="Last Name"
             placeholder="Last Name"
             variant="2"
+            error={errors?.lastName}
             onHandleText={onHandleValue.bind(this, "lastName")}
             value={userValue.lastName}
           />
@@ -39,12 +42,11 @@ const ProfileForm1 = ({
       </div>
       <div className="row">
         <div className="col-1-of-2">
-          <FormInput
-            title="Date Of Birth"
+          <Calendar
             placeholder="Date Of Birth"
-            variant="2"
-            onHandleText={onHandleValue.bind(this, "dob")}
             value={userValue.dob}
+            error={errors?.dob}
+            onHandleCalendar={onHandleValue.bind(this, "dob")}
           />
         </div>
         <div className="col-1-of-2">
@@ -52,6 +54,7 @@ const ProfileForm1 = ({
             title="Phone Number"
             placeholder="Phone Number"
             variant="2"
+            error={errors?.phone}
             onHandleText={onHandleValue.bind(this, "phone")}
             value={userValue.phone}
           />
@@ -63,6 +66,7 @@ const ProfileForm1 = ({
             title="Address Line 1"
             placeholder="Address Line 1"
             variant="2"
+            error={errors?.addressLine1}
             onHandleText={onHandleValue.bind(this, "addressLine1")}
             value={userValue.addressLine1}
           />
@@ -93,6 +97,7 @@ const ProfileForm1 = ({
         <div className="col-1-of-3">
           <Dropdown
             placeholder="City"
+            error={errors?.city}
             value={userValue.city}
             contents={displayValues.city}
             name="name"
@@ -105,6 +110,7 @@ const ProfileForm1 = ({
             title="Pincode"
             placeholder="Pincode"
             variant="2"
+            error={errors?.pincode}
             onHandleText={onHandleValue.bind(this, "pincode")}
             value={userValue.pincode}
           />

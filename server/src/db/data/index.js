@@ -8,7 +8,9 @@ const DATA = {
         last_name VARCHAR(20),
         dob DATE,
         phone VARCHAR(11) UNIQUE,
-        password VARCHAR(100) NOT NULL
+        password VARCHAR(100) NOT NULL,
+        info_state INT DEFAULT 1 NOT NULL,
+        profile_state VARCHAR(10) DEFAULT 'enabled' NOT NULL
     );`,
 
   CREATE_ADDRESS_TABLE: `CREATE TABLE IF NOT EXISTS address(
@@ -40,7 +42,8 @@ const DATA = {
                           middle_name = $2,
                           last_name = $3,
                           dob = $4,
-                          phone = $5
+                          phone = $5,
+                          info_state = 2
                       WHERE id = $6
                       RETURNING *`,
   INSERT_ADDRESS_INFO: `INSERT INTO address (address_line1, address_line2, city_id, pincode, user_id)

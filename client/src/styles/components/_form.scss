@@ -464,6 +464,11 @@
       top: 5.5rem;
       left: 2rem;
       z-index: 100;
+
+      &-2 {
+        top: 5rem;
+        left: 0rem;
+      }
     }
 
     &--error {
@@ -471,14 +476,6 @@
     }
   }
 }
-
-// .form__inputGroup > input:valid ~ .form__inputTitle {
-//   top: 0;
-//   left: 2rem;
-//   visibility: visible;
-//   opacity: 1;
-//   transition: all 0.3s;
-// }
 
 @keyframes pointer-jump {
   0% {

@@ -12,6 +12,7 @@ const Calendar = ({
   value,
   onHandleCalendar,
   type = "date",
+  placeholder = "Select Date",
   ...rest
 }) => {
   const ref = useRef();
@@ -27,11 +28,11 @@ const Calendar = ({
   });
 
   const [startDate, setStartDate] = useState(
-    value ? moment(value).valueOf() : moment().valueOf()
+    value ? moment(value).valueOf() : null
   );
 
   useEffect(() => {
-    setStartDate(moment(value).valueOf());
+    if (value) setStartDate(moment(value).valueOf());
   }, [value]);
 
   useEffect(() => {
@@ -97,7 +98,11 @@ const Calendar = ({
       case "day":
         return (
           <div className="form__calendar--date">
-            <Text>{moment(stamp).format("dddd")}</Text>
+            {!value ? (
+              <Text>{placeholder}</Text>
+            ) : (
+              <Text>{moment(stamp).format("dddd")}</Text>
+            )}
           </div>
         );
       default:
@@ -110,6 +115,7 @@ const Calendar = ({
             showFourColumnMonthYearPicker
             onChange={onSetDate}
             dateFormatCalendar="MMMM yyyy"
+            placeholderText={placeholder}
             value={value}
             {...rest}
           />
