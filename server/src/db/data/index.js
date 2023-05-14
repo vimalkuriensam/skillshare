@@ -27,7 +27,7 @@ const DATA = {
   )`,
   CREATE_TABLE_CITIES: `CREATE TABLE IF NOT EXISTS cities(
     id SERIAL PRIMARY KEY,
-    name VARCHAR(20) NOT NULL,
+    name VARCHAR(20) UNIQUE NOT NULL,
     country_id INT NOT NULL,
     FOREIGN KEY(country_id) REFERENCES countries(id)
   )`,

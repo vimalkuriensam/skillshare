@@ -12,6 +12,7 @@ const Dropdown = ({
   onHandleDropdownValue,
   className,
   filter = true,
+  name = null,
 }) => {
   useEffect(() => {
     const handler = (event) => {
@@ -46,9 +47,11 @@ const Dropdown = ({
   const onSetContentFilter = (e) => {
     const text = e.target.value;
     let newContents = contents;
-    newContents = newContents.filter((newContent) =>
-      newContent.toLowerCase().includes(text.toLowerCase())
-    );
+    newContents = newContents.filter((newContent) => {
+      if (name)
+        return newContent[name].toLowerCase().includes(text.toLowerCase());
+      return newContent.toLowerCase().includes(text.toLowerCase());
+    });
     setUpdatedContents(newContents);
   };
   return (
@@ -56,7 +59,7 @@ const Dropdown = ({
       <div className="form__dropdown-1--value" onClick={onHandleListToggle}>
         <span>
           {val ? (
-            <Text variant="r-14-400-2">{val}</Text>
+            <Text variant="ii-18-1">{name ? val[name] : val}</Text>
           ) : (
             <Text variant="ss-18-1">{placeholder}</Text>
           )}
@@ -82,7 +85,9 @@ const Dropdown = ({
                   onClick={onHandleValueSelect.bind(this, content)}
                   key={index}
                 >
-                  <Text variant="r-14-400-1">{content}</Text>
+                  <Text variant="ss-18-1">
+                    {name ? content[name] : content}
+                  </Text>
                 </li>
               ))}
           </ul>

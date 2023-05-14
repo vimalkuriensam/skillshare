@@ -73,7 +73,7 @@ export const getCountries = () => async (dispatch) => {
     const { data, status } = await apiService().get(`/api/v1/profile/country`);
     if (status == 200) {
       dispatch(deleteCountry());
-      dispatch(setCountry({ country: data["countries"] }));
+      dispatch(setCountry({ country: data["data"]["countries"] }));
     }
   } catch (e) {
     console.log(e.message);
@@ -89,7 +89,7 @@ export const getCities =
       );
       if (status == 200) {
         dispatch(deleteCity());
-        dispatch(setCity({ city: data["cities"] }));
+        dispatch(setCity({ city: data["data"]["cities"] }));
       }
     } catch (e) {
       console.log(e.message);

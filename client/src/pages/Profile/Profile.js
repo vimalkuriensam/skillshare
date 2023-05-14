@@ -5,7 +5,7 @@ import { getCities, getCountries } from "../../redux/actions/auth.action";
 import ProfileAction from "./container/ProfileAction";
 import ProfileForm1 from "./container/ProfileForm1";
 
-const Profile = ({ dispatch }) => {
+const Profile = ({ dispatch, countries = [], cities = [] }) => {
   const [currentStep, setCurrentStep] = useState(1);
   const [userValue, setUserValue] = useState({
     firstName: "",
@@ -20,13 +20,32 @@ const Profile = ({ dispatch }) => {
     country: "",
     pincode: "",
   });
+  const [displayValues, setDisplayValues] = useState({
+    country: [],
+    city: [],
+  });
 
   useEffect(() => {
     dispatch(getCountries());
   }, []);
 
+  useEffect(() => {
+    setDisplayValues((prevState) => ({
+      ...prevState,
+      country: countries,
+      city: cities,
+    }));
+  }, [JSON.stringify(countries), JSON.stringify(cities)]);
+
   const onHandleValue = (key, { target: { value } }) => {
-    setUserValue((prevState) => ({ ...prevState, [key]: value }));
+    setUserValue((prevState) => ({
+      ...prevState,
+      [key]: value,
+      ...(key == "country" && { city: "" }),
+    }));
+    if (key == "country") {
+      dispatch(getCities({ countryId: value.id }));
+    }
   };
   return (
     <section className="section-profile">
@@ -35,11 +54,20 @@ const Profile = ({ dispatch }) => {
         currentStep={currentStep}
       />
       <div className="profile__formContainer">
-        <ProfileForm1 userValue={userValue} onHandleValue={onHandleValue} />
+        <ProfileForm1
+          userValue={userValue}
+          displayValues={displayValues}
+          onHandleValue={onHandleValue}
+        />
       </div>
       <ProfileAction />
     </section>
   );
 };
 
-export default connect()(Profile);
+const mapStateToProps = ({ auth: { location } }) => ({
+  countries: location.country,
+  cities: location.city,
+});
+
+export default connect(mapStateToProps)(Profile);

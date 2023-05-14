@@ -59,7 +59,7 @@ const VerifyCredentials = async ({ username, password }) => {
     if (!isMatch) throw new Error("INVALID_CREDENTIALS");
     delete user["password"];
     const token = generateAuthToken({
-      id: user.user_id,
+      id: user.id,
       username: user.username,
     });
     return { user, token };

@@ -317,12 +317,12 @@
       z-index: 100;
       overflow-y: scroll;
       overflow-x: hidden;
-      max-height: 30rem;
+      max-height: 20rem;
       ul {
         background: $color-white;
         li {
           list-style: none;
-          padding: 0.6rem;
+          padding: 0.6rem 1rem;
           cursor: pointer;
           &:hover {
             background: $color-primary;

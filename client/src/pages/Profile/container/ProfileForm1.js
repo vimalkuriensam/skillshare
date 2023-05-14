@@ -1,7 +1,11 @@
 import React, { Fragment } from "react";
 import { Dropdown, FormInput } from "../../../components";
 
-const ProfileForm1 = ({ userValue, onHandleValue = () => {} }) => {
+const ProfileForm1 = ({
+  userValue,
+  displayValues = [],
+  onHandleValue = () => {},
+}) => {
   return (
     <Fragment>
       <div className="row">
@@ -80,6 +84,8 @@ const ProfileForm1 = ({ userValue, onHandleValue = () => {} }) => {
           <Dropdown
             placeholder="Country"
             value={userValue.country}
+            contents={displayValues.country}
+            name="name"
             onHandleDropdownValue={onHandleValue.bind(this, "country")}
             variant="1"
           />
@@ -88,6 +94,8 @@ const ProfileForm1 = ({ userValue, onHandleValue = () => {} }) => {
           <Dropdown
             placeholder="City"
             value={userValue.city}
+            contents={displayValues.city}
+            name="name"
             onHandleDropdownValue={onHandleValue.bind(this, "city")}
             variant="1"
           />
