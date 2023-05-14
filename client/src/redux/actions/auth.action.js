@@ -74,6 +74,7 @@ export const getCountries = () => async (dispatch) => {
     if (status == 200) {
       dispatch(deleteCountry());
       dispatch(setCountry({ country: data["data"]["countries"] }));
+      return data["data"]["countries"];
     }
   } catch (e) {
     console.log(e.message);
@@ -90,6 +91,7 @@ export const getCities =
       if (status == 200) {
         dispatch(deleteCity());
         dispatch(setCity({ city: data["data"]["cities"] }));
+        return data["data"]["cities"];
       }
     } catch (e) {
       console.log(e.message);

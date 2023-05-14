@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
+
 import { Stepper } from "../../components";
 import {
   getCities,
@@ -7,12 +8,17 @@ import {
   getUserInfo,
 } from "../../redux/actions/auth.action";
 import { addBasicInfo } from "../../redux/actions/profile.action";
+import { ObjectCopy } from "../../utils/data";
 import ProfileAction from "./container/ProfileAction";
 import ProfileForm1 from "./container/ProfileForm1";
 import ProfileForm2 from "./container/ProfileForm2";
 import ProfileForm3 from "./container/ProfileForm3";
 import ProfileForm4 from "./container/ProfileForm4";
-import { PROFILE_MANDATORY_FIELDS } from "./data";
+import {
+  DISPLAY_VALUES_CONSTANT,
+  PROFILE_MANDATORY_FIELDS,
+  USER_FIELDS,
+} from "./data";
 
 const Profile = ({ dispatch, countries = [], cities = [], user = {} }) => {
   const [currentStep, setCurrentStep] = useState(
@@ -30,23 +36,9 @@ const Profile = ({ dispatch, countries = [], cities = [], user = {} }) => {
     city: "" || user?.city,
     country: "",
     pincode: "" || user?.pincode,
-    workExperience: [
-      {
-        companyName: "",
-        startDate: "",
-        endDate: "",
-        current: false,
-        city: "",
-        summary: "",
-      },
-    ],
-    skills: [
-      {
-        skill: "",
-        proficiency: "",
-      },
-    ],
-    languages: [{ language: "", proficiency: "" }],
+    workExperience: [{ ...USER_FIELDS.workExperience }],
+    skills: [{ ...USER_FIELDS.skills }],
+    languages: [{ ...USER_FIELDS.languages }],
   });
 
   const [errorValue, setErrorValue] = useState({
@@ -63,13 +55,12 @@ const Profile = ({ dispatch, countries = [], cities = [], user = {} }) => {
     pincode: "",
   });
   const [displayValues, setDisplayValues] = useState({
-    country: [],
-    city: [],
+    ...DISPLAY_VALUES_CONSTANT,
   });
 
   useEffect(() => {
     dispatch(getUserInfo());
-    dispatch(getCountries());
+    fetchInfo();
   }, []);
 
   useEffect(() => {
@@ -77,21 +68,40 @@ const Profile = ({ dispatch, countries = [], cities = [], user = {} }) => {
   }, [user.info_state]);
 
   useEffect(() => {
-    setDisplayValues((prevState) => ({
-      ...prevState,
-      country: countries,
-      city: cities,
-    }));
-  }, [JSON.stringify(countries), JSON.stringify(cities)]);
+    fetchInfo();
+  }, [JSON.stringify(displayValues)]);
 
-  const onHandleValue = (key, { target: { value } }) => {
+  const fetchInfo = async () => {
+    switch (user.info_state) {
+      case (1, 2):
+        const country = await dispatch(getCountries());
+        if (country.length) {
+          if (user.info_state == 1)
+            setDisplayValues((prevState) => ({
+              ...prevState,
+              basicInfo: { ...prevState.basicInfo, country },
+            }));
+          else {
+            const workExperience = ObjectCopy(displayValues["workExperience"]);
+            workExperience[workExperience.length - 1]["country"] = country;
+            setDisplayValues((prevState) => ({ ...prevState, workExperience }));
+          }
+        }
+    }
+  };
+
+  const onHandleValue = async (key, { target: { value } }) => {
     setUserValue((prevState) => ({
       ...prevState,
       [key]: value,
       ...(key == "country" && { city: "" }),
     }));
     if (key == "country") {
-      dispatch(getCities({ countryId: value.id }));
+      const cities = await dispatch(getCities({ countryId: value.id }));
+      setDisplayValues((prevState) => ({
+        ...prevState,
+        basicInfo: { ...prevState, city: cities },
+      }));
     }
   };
 
@@ -105,11 +115,49 @@ const Profile = ({ dispatch, countries = [], cities = [], user = {} }) => {
     return error;
   };
 
+  const onHandleProficiency = async (tableKey, key, { target: { value } }) => {
+    const tableValue = JSON.parse(JSON.stringify(userValue[tableKey]));
+    const arrLength = tableValue.length - 1;
+    tableValue[arrLength][key] = value;
+    setUserValue((prevState) => ({ ...prevState, [tableKey]: tableValue }));
+    if (key == "country") {
+      const cities = await dispatch(getCities({ countryId: value.id }));
+      if (cities.length) {
+        const displayValueCopy = JSON.parse(JSON.stringify(displayValues));
+        displayValueCopy[tableKey][arrLength].city = cities;
+        setDisplayValues(displayValueCopy);
+      }
+    }
+  };
+
+  const onChangeProficiency = (tableKey, key, index) => {
+    const displayTableData = ObjectCopy(DISPLAY_VALUES_CONSTANT[tableKey]);
+    if (key > 0) {
+      setUserValue((prevState) => ({
+        ...prevState,
+        [tableKey]: [...prevState[tableKey], { ...USER_FIELDS[tableKey] }],
+      }));
+      setDisplayValues((prevState) => ({
+        ...prevState,
+        [tableKey]: [...prevState[tableKey], { ...displayTableData }],
+      }));
+    } else {
+      let userProf = ObjectCopy(userValue[tableKey]);
+      let displayProf = ObjectCopy(displayValues[tableKey]);
+      userProf.splice(index, 1);
+      displayProf.splice(index, 1);
+      setUserValue((prevState) => ({ ...prevState, [tableKey]: userProf }));
+      setDisplayValues((prevState) => ({
+        ...prevState,
+        [tableKey]: displayProf,
+      }));
+    }
+  };
+
   const onHandleSubmit = async () => {
     try {
       const errors = validate();
       if (!Object.keys(errors).length) {
-        console.log(user.info_state);
         switch (parseInt(user.info_state)) {
           case 1:
             await dispatch(addBasicInfo(userValue));
@@ -127,16 +175,21 @@ const Profile = ({ dispatch, countries = [], cities = [], user = {} }) => {
           <ProfileForm1
             userValue={userValue}
             errors={errorValue}
-            displayValues={displayValues}
+            displayValues={displayValues.basicInfo}
             onHandleValue={onHandleValue}
           />
         );
       case 2:
         return (
           <ProfileForm2
-            workExperience={userValue.workExperience}
+            workExperiences={userValue.workExperience}
             errors={errorValue}
-            onHandleValue={onHandleValue}
+            displayValues={displayValues.workExperience}
+            onHandleValue={onHandleProficiency.bind(this, "workExperience")}
+            onChangeProficiency={onChangeProficiency.bind(
+              this,
+              "workExperience"
+            )}
           />
         );
       case 3:
