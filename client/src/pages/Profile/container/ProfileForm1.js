@@ -78,17 +78,17 @@ const ProfileForm1 = ({ userValue, onHandleValue = () => {} }) => {
       <div className="row">
         <div className="col-1-of-3">
           <Dropdown
-            placeholder="City"
-            value={userValue.city}
-            onHandleDropdownValue={onHandleValue.bind(this, "city")}
+            placeholder="Country"
+            value={userValue.country}
+            onHandleDropdownValue={onHandleValue.bind(this, "country")}
             variant="1"
           />
         </div>
         <div className="col-1-of-3">
           <Dropdown
-            placeholder="Country"
-            value={userValue.country}
-            onHandleDropdownValue={onHandleValue.bind(this, "country")}
+            placeholder="City"
+            value={userValue.city}
+            onHandleDropdownValue={onHandleValue.bind(this, "city")}
             variant="1"
           />
         </div>

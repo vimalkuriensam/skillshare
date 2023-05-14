@@ -1,10 +1,11 @@
-import React, { useState } from "react";
-import { Button, FormInput, Stepper } from "../../components";
-import Dropdown from "../../components/atoms/dropdown/Dropdown";
+import React, { useEffect, useState } from "react";
+import { connect } from "react-redux";
+import { Stepper } from "../../components";
+import { getCities, getCountries } from "../../redux/actions/auth.action";
 import ProfileAction from "./container/ProfileAction";
 import ProfileForm1 from "./container/ProfileForm1";
 
-const Profile = () => {
+const Profile = ({ dispatch }) => {
   const [currentStep, setCurrentStep] = useState(1);
   const [userValue, setUserValue] = useState({
     firstName: "",
@@ -19,6 +20,11 @@ const Profile = () => {
     country: "",
     pincode: "",
   });
+
+  useEffect(() => {
+    dispatch(getCountries());
+  }, []);
+
   const onHandleValue = (key, { target: { value } }) => {
     setUserValue((prevState) => ({ ...prevState, [key]: value }));
   };
@@ -36,4 +42,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default connect()(Profile);

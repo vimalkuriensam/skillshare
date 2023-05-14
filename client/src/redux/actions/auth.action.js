@@ -1,12 +1,16 @@
-import Axios from "axios";
 import apiService from "../../api-interceptor/authAxios";
-import ApiService from "../../api-interceptor/authAxios";
 
 export const SET_USER = "SET_USER";
 export const DELETE_USER = "DELETE_USER";
 
 export const SET_TOKEN = "SET_TOKEN";
 export const DELETE_TOKEN = "DELETE_TOKEN";
+
+export const SET_COUNTRY = "SET_COUNTRY";
+export const DELETE_COUNTRY = "DELETE_COUNTRY";
+
+export const SET_CITY = "SET_CITY";
+export const DELETE_CITY = "DELETE_CITY";
 
 export const setUser = ({ user = {} }) => ({
   type: SET_USER,
@@ -26,14 +30,6 @@ export const registerUser =
   ({ username, email, password }) =>
   async (dispatch) => {
     try {
-      // const { data, status } = await Axios.post(
-      //   `http://${process.env.REACT_APP_BACKEND_HOST}/api/v1/auth/signup`,
-      //   {
-      //     username,
-      //     email,
-      //     password,
-      //   }
-      // );
       const { data, status } = await apiService().post("/api/v1/auth/signup", {
         username,
         email,
@@ -57,13 +53,10 @@ export const loginUser =
       const {
         data: { data },
         status,
-      } = await ApiService().post(
-        `http://${process.env.REACT_APP_BACKEND_HOST}/api/v1/auth/login`,
-        {
-          username,
-          password,
-        }
-      );
+      } = await apiService().post(`/api/v1/auth/login`, {
+        username,
+        password,
+      });
       if (status == 200) {
         dispatch(setUser({ user: data["user"] }));
         dispatch(setToken({ value: data["token"] }));
@@ -74,3 +67,45 @@ export const loginUser =
       console.log(e);
     }
   };
+
+export const getCountries = () => async (dispatch) => {
+  try {
+    const { data, status } = await apiService().get(`/api/v1/profile/country`);
+    if (status == 200) {
+      dispatch(deleteCountry());
+      dispatch(setCountry({ country: data["countries"] }));
+    }
+  } catch (e) {
+    console.log(e.message);
+  }
+};
+
+export const getCities =
+  ({ countryId }) =>
+  async (dispatch) => {
+    try {
+      const { data, status } = await apiService().get(
+        `/api/v1/profile/city/${countryId}`
+      );
+      if (status == 200) {
+        dispatch(deleteCity());
+        dispatch(setCity({ city: data["cities"] }));
+      }
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
+
+export const setCountry = ({ country = [] }) => ({
+  type: SET_COUNTRY,
+  country,
+});
+
+export const deleteCountry = () => ({ type: DELETE_COUNTRY });
+
+export const setCity = ({ city = [] }) => ({
+  type: SET_CITY,
+  city,
+});
+
+export const deleteCity = () => ({ type: DELETE_CITY });
