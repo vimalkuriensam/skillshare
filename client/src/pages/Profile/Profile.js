@@ -9,12 +9,14 @@ import {
 import { addBasicInfo } from "../../redux/actions/profile.action";
 import ProfileAction from "./container/ProfileAction";
 import ProfileForm1 from "./container/ProfileForm1";
+import ProfileForm2 from "./container/ProfileForm2";
+import ProfileForm3 from "./container/ProfileForm3";
 import ProfileForm4 from "./container/ProfileForm4";
 import { PROFILE_MANDATORY_FIELDS } from "./data";
 
 const Profile = ({ dispatch, countries = [], cities = [], user = {} }) => {
   const [currentStep, setCurrentStep] = useState(
-    parseInt(user.info_state) || 1
+    3//parseInt(user.info_state) || 1
   );
   const [userValue, setUserValue] = useState({
     firstName: "" || user?.first_name,
@@ -69,10 +71,10 @@ const Profile = ({ dispatch, countries = [], cities = [], user = {} }) => {
     dispatch(getUserInfo());
     dispatch(getCountries());
   }, []);
-
-  useEffect(() => {
-    if (user.info_state != currentStep) setCurrentStep(user.info_state);
-  }, [user.info_state]);
+  
+  // useEffect(() => {
+  //   if (user.info_state != currentStep) setCurrentStep(3); //user.info_state
+  // }, [user.info_state]);
 
   useEffect(() => {
     setDisplayValues((prevState) => ({
@@ -106,7 +108,6 @@ const Profile = ({ dispatch, countries = [], cities = [], user = {} }) => {
   const onHandleSubmit = async () => {
     try {
       const errors = validate();
-      console.log("errors", errors);
       if (!Object.keys(errors).length) {
         console.log(user.info_state);
         switch (parseInt(user.info_state)) {
@@ -120,13 +121,29 @@ const Profile = ({ dispatch, countries = [], cities = [], user = {} }) => {
   };
 
   const getForm = () => {
-    switch (user.info_state) {
+    switch (currentStep) {
       case 1:
         return (
           <ProfileForm1
             userValue={userValue}
             errors={errorValue}
             displayValues={displayValues}
+            onHandleValue={onHandleValue}
+          />
+        );
+      case 2:
+        return (
+          <ProfileForm2
+            workExperience={userValue.workExperience}
+            errors={errorValue}
+            onHandleValue={onHandleValue}
+          />
+        );
+      case 3:
+        return (
+          <ProfileForm3
+            skills={userValue.skills}
+            errors={errorValue}
             onHandleValue={onHandleValue}
           />
         );

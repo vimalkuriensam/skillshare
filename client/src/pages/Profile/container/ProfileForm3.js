@@ -1,15 +1,12 @@
 import React, { Fragment } from "react";
 import { Button, Dropdown } from "../../../components";
 
-const ProfileForm4 = ({
-  onAddLanguage = () => {},
-  onRemoveLanguage = () => {},
-}) => {
+const ProfileForm3 = ({ onAddSkill = () => {}, onRemoveSkill = () => {} }) => {
   return (
     <Fragment>
       <div className="row">
         <div className="col-1-of-2">
-          <Dropdown placeholder="Language" />
+          <Dropdown placeholder="Skills" />
         </div>
         <div className="col-1-of-2">
           <Dropdown placeholder="Proficiency" />
@@ -19,15 +16,15 @@ const ProfileForm4 = ({
         <div className="col-1-of-2">
           <Button
             variant="4-1"
-            onButtonClick={onRemoveLanguage}
-            content="REMOVE EXPERIENCE"
+            onButtonClick={onRemoveSkill}
+            content="REMOVE SKILL"
           />
         </div>
         <div className="col-1-of-2">
           <Button
             variant="5-1"
-            onButtonClick={onAddLanguage}
-            content="ADD EXPERIENCE"
+            onButtonClick={onAddSkill}
+            content="ADD SKILL"
           />
         </div>
       </div>
@@ -35,4 +32,4 @@ const ProfileForm4 = ({
   );
 };
 
-export default ProfileForm4;
+export default ProfileForm3;
