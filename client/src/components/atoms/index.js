@@ -6,3 +6,4 @@ export { Text } from "./text";
 export { TextArea } from "./text-area";
 export { Title } from "./title";
 export { Dropdown } from "./dropdown";
+export { Calendar } from "./calendar";

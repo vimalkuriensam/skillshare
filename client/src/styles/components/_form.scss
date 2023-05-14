@@ -166,6 +166,38 @@
     }
   }
 
+  &__calendar {
+    cursor: pointer;
+    position: relative;
+    display: inline-block;
+    width: 100%;
+
+    &--date {
+      height: 3.5rem;
+      min-width: 20rem;
+      background: $color-grey-light-1;
+      border: 1px solid $color-grey-light-2;
+      border-radius: 0.5rem;
+      padding: 0.4rem 1rem;
+      overflow: hidden;
+      > div {
+        color: #495057;
+        font-family: "roboto-medium";
+        font-size: 1.6rem;
+      }
+    }
+
+    &--icon {
+      position: absolute;
+      top: 45%;
+      right: 1rem;
+      transform: translateY(-50%);
+      > div > svg {
+        height: 2rem !important;
+      }
+    }
+  }
+
   &__textarea {
     resize: none;
     border-radius: 1rem;

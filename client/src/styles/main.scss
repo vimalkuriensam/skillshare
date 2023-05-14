@@ -1,3 +1,5 @@
+@import "react-datepicker/dist/react-datepicker.css";
+
 @import "./abstracts/variables";
 @import "./abstracts/functions";
 @import "./abstracts/mixins";
@@ -20,3 +22,5 @@
 @import "./layout/loader";
 
 @import "./pages/auth";
+
+@import "./vendors/calendar";
