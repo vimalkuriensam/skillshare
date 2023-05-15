@@ -21,7 +21,7 @@ const DATA = {
         city_id INT,
         pincode VARCHAR(10),
         user_id INT UNIQUE,
-        FOREIGN KEY(user_id) REFERENCES users(id)
+        FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE
     );`,
 
   CREATE_TABLE_COUNTRIES: `CREATE TABLE IF NOT EXISTS countries(
@@ -32,7 +32,7 @@ const DATA = {
                         id SERIAL PRIMARY KEY,
                         name VARCHAR(20) UNIQUE NOT NULL,
                         country_id INT NOT NULL,
-                        FOREIGN KEY(country_id) REFERENCES countries(id)
+                        FOREIGN KEY(country_id) REFERENCES countries(id) ON DELETE CASCADE
                       )`,
   CREATE_TABLE_WORKEXPERIENCE: `CREATE TABLE IF NOT EXISTS work_experience(
                         id SERIAL PRIMARY KEY,
@@ -43,7 +43,7 @@ const DATA = {
                         city_id INT NOT NULL,
                         user_id INT NOT NULL,
                         FOREIGN KEY(city_id) REFERENCES cities(id),
-                        FOREIGN KEY(user_id) REFERENCES users(id)
+                        FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE
                       );`,
   CREATE_TABLE_SKILLS: `CREATE TABLE IF NOT EXISTS skills (
                       id SERIAL PRIMARY KEY,
@@ -55,7 +55,7 @@ const DATA = {
                       user_id INT NOT NULL,
                       proficiency VARCHAR(20) DEFAULT 'BEGINNER' NOT NULL,
                       FOREIGN KEY(skill_id) REFERENCES skills(id),
-                      FOREIGN KEY(user_id) REFERENCES users(id)
+                      FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE
                       );`,
   CREATE_TABLE_LANGUAGES: `CREATE TABLE IF NOT EXISTS languages (
                         id SERIAL PRIMARY KEY,
@@ -67,7 +67,7 @@ const DATA = {
                         user_id INT NOT NULL,
                         proficiency VARCHAR(20) DEFAULT 'BEGINNER' NOT NULL,
                         FOREIGN KEY(language_id) REFERENCES languages(id),
-                        FOREIGN KEY(user_id) REFERENCES users(id)
+                        FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE
                         );`,
   INSERT_COUNTRIES: `INSERT INTO countries (name) VALUES (`,
   INSERT_CITIES: `INSERT INTO cities (name, country_id) VALUES (`,
@@ -158,6 +158,8 @@ const DATA = {
                     LEFT JOIN skills ON user_skills.skill_id = skills.id
                     WHERE user_skills.user_id = $1;`,
   GET_ALL_LANGUAGES: `SELECT * FROM languages`,
+  DELETE_ALL_USERS: "DELETE FROM users",
+  DELETE_USER_BY_ID: `DELETE FROM users WHERE id = $1`,
 };
 
 module.exports = { DATA };

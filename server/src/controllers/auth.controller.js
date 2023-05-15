@@ -1,7 +1,11 @@
 const validator = require("validator");
 const bcrypt = require("bcrypt");
 
-const { InsertUser, VerifyCredentials } = require("../db/query");
+const {
+  InsertUser,
+  VerifyCredentials,
+  DeleteUserById,
+} = require("../db/query");
 
 const LoginController = async (req, res) => {
   try {
@@ -31,9 +35,13 @@ const RegisterController = async (req, res) => {
 };
 
 const DeleteUserController = async (req, res) => {
+  const id = req.user.id;
+  const resp = DeleteUserById({ id });
+  if (resp) res.send({ message: "USER DELETED" });
+  else throw { message: "UNABLE TO DELETE USER" };
   try {
   } catch (e) {
-    console.log(e.message);
+    res.status(400).send({ error: e.message });
   }
 };
 

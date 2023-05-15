@@ -24,6 +24,24 @@ const InsertUser = async ({ username, password, email }) => {
   }
 };
 
+const DeleteUsers = async () => {
+  try {
+    const resp = await pool.query(DATA.DELETE_ALL_USERS);
+    if (resp) return true;
+  } catch (e) {
+    throw { message: e.message };
+  }
+};
+
+const DeleteUserById = async ({ id }) => {
+  try {
+    const resp = await pool.query(DATA.DELETE_USER_BY_ID, [id]);
+    if (resp) return true;
+  } catch (e) {
+    throw { message: e.message };
+  }
+};
+
 const SearchUserByUsername = async ({ username }) => {
   try {
     const { rows } = await pool.query(DATA.GET_USER_USERNAME, [username]);
@@ -269,4 +287,6 @@ module.exports = {
   GetSkills,
   AddSkills,
   AddLanguages,
+  DeleteUsers,
+  DeleteUserById,
 };
