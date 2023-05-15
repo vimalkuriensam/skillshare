@@ -9,11 +9,11 @@ const RecruiterDashboard = ({ dispatch, users = [] }) => {
     dispatch(getAllUserInfo());
   }, []);
 
-  const onHandleAction = () => {};
-
-  console.log("users", users);
+  const onHandleAction = (actionState) => {
+    console.log(actionState);
+  };
   return (
-    <div>
+    <section className="section-recruiter">
       <Table
         minRows={10}
         header={DEFAULT_RECRUITER_TABLE_HEADER}
@@ -24,7 +24,7 @@ const RecruiterDashboard = ({ dispatch, users = [] }) => {
         //   search?.split("=")[search?.split("=").length - 1] == "royaltyTree"
         // }
       />
-    </div>
+    </section>
   );
 };
 

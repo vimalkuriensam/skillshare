@@ -77,6 +77,12 @@ body {
     color: $color-white;
   }
 
+  &--alb-16-3 {
+    font-size: 1.8rem;
+    font-family: "almarai-bold";
+    color: $color-black;
+  }
+
   &--asr-24-1 {
     font-size: 2.4rem;
     font-family: "alegreyasans-sc-regular";
@@ -114,6 +120,12 @@ body {
   font-family: "poppins-regular";
   display: inline-block;
 
+  &--alr-14-1 {
+    font-size: 1.4rem;
+    font-family: "almarai-regular";
+    color: #5c5c5c;
+  }
+
   &--im-17-1 {
     font-family: "inter-medium";
     font-size: 1.7rem;
@@ -126,7 +138,7 @@ body {
     color: $color-white;
   }
 
-  &--ii-18-1{
+  &--ii-18-1 {
     font-size: 1.8rem;
     font-family: "inter-italic";
     color: $color-black;
@@ -147,7 +159,7 @@ body {
   &--ss-18-1 {
     font-family: sans-serif;
     font-size: 1.8rem;
-    color: #8C8C90;
+    color: #8c8c90;
   }
 
   &--error-12 {

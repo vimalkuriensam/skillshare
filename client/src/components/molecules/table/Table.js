@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Text } from "../../atoms";
+import { Text, Title } from "../../atoms";
 import { BiArrowFromRight, BiArrowFromLeft } from "react-icons/bi";
 import { Loader, Pagination } from "../../organisms";
 
@@ -38,7 +38,7 @@ const Table = ({
           <tr>
             {header.map(({ heading }, index) => (
               <th key={index}>
-                <Text variant="p-13-700-1">{heading}</Text>
+                <Title variant="alb-16-3">{heading}</Title>
               </th>
             ))}
           </tr>
@@ -51,13 +51,15 @@ const Table = ({
                 <tr key={idx}>
                   {header.map(({ accessor, cell = null }, index) => (
                     <td key={index}>
-                      {!!cell
-                        ? cell({
-                            [accessor]: value[accessor],
-                            details: value,
-                            onHandleAction: onHandleAction.bind(this, index),
-                          })
-                        : value[accessor] || ""}
+                      {!!cell ? (
+                        cell({
+                          [accessor]: value[accessor],
+                          details: value,
+                          onHandleAction: onHandleAction.bind(this, index),
+                        })
+                      ) : (
+                        <Text variant="alr-14-1">{value[accessor] || ""}</Text>
+                      )}
                     </td>
                   ))}
                 </tr>

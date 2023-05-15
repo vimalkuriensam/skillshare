@@ -1,10 +1,11 @@
 import React from "react";
 
-const Reject = () => (
+const Reject = ({ className }) => (
   <svg
     width="26"
     height="26"
     viewBox="0 0 26 26"
+    className={className}
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >

@@ -1,11 +1,12 @@
 import React from "react";
 
-const Select = () => (
+const Select = ({ className }) => (
   <svg
     width="33"
     height="32"
     viewBox="0 0 33 32"
     fill="none"
+    className={className}
     xmlns="http://www.w3.org/2000/svg"
   >
     <path

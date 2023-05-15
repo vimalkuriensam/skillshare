@@ -17,7 +17,7 @@ export const NAVCONTENTS = [
     title: "profile",
     link: "/profile",
     icon: "Notepad",
-    type: USER_TYPES.COMMON,
+    type: USER_TYPES.USER,
   },
   {
     title: "settings",
