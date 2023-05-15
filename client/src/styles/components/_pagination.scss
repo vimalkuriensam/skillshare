@@ -1,0 +1,82 @@
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  > li {
+    margin: 0;
+  }
+  &__pages {
+    width: 2.4rem;
+    height: 3.1rem;
+    background: #dee2e6;
+    list-style: none;
+    cursor: pointer;
+    color: #323232;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    > * {
+      font-weight: 400;
+      font-size: 1.3rem;
+    }
+    &--link {
+      display: inline-block;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      padding: 0.5rem;
+    }
+    &--active {
+      color: $color-white;
+      background: #6c5dd3;
+      &:hover {
+        color: $color-white !important;
+        background: #6c5dd3 !important;
+      }
+    }
+    &--disabled {
+      background: rgb(233, 236, 239) !important;
+      cursor: no-drop !important;
+      color: $color-grey-dark !important;
+      > svg {
+        color: #adb5bd !important;
+      }
+      > a > svg {
+        color: #adb5bd !important;
+      }
+    }
+    &--action {
+      list-style: none;
+      width: 2.4rem;
+      height: 3.1rem;
+      padding: 0.4rem;
+      background: #dee2e6;
+      color: $color-tertiary;
+      font-weight: bold;
+      cursor: pointer;
+      &:hover {
+        // color: $color-white;
+        background: rgb(233, 236, 239);
+        transition: 0.3s;
+      }
+    }
+
+    &--actionLeft {
+      width: 3rem;
+      border-top-left-radius: 1.3rem;
+      border-bottom-left-radius: 1.3rem;
+    }
+
+    &--actionRight {
+      width: 3rem;
+      border-top-right-radius: 1.3rem;
+      border-bottom-right-radius: 1.3rem;
+    }
+
+    &:hover {
+      //   color: $color-white;
+      background: rgb(233, 236, 239);
+      transition: 0.3s;
+    }
+  }
+}

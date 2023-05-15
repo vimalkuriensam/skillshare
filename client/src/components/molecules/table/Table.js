@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Text } from "../../atoms";
-// import { BiArrowFromRight, BiArrowFromLeft } from "react-icons/bi";
+import { BiArrowFromRight, BiArrowFromLeft } from "react-icons/bi";
 import { Loader, Pagination } from "../../organisms";
 
 const Table = ({
@@ -67,7 +67,7 @@ const Table = ({
       {loader && (
         <div className="table__loader">
           <div>
-            <Loader2 load={loader} />
+            <Loader load={loader} />
           </div>
         </div>
       )}
@@ -84,7 +84,7 @@ const Table = ({
                 }`}
                 onClick={onHandleExtreme}
               >
-                {/* <BiArrowFromRight /> */}
+                <BiArrowFromRight />
               </li>
               <Pagination
                 total={data.length}
@@ -99,7 +99,7 @@ const Table = ({
                 }`}
                 onClick={onHandleExtreme.bind(this, 1)}
               >
-                {/* <BiArrowFromLeft /> */}
+                <BiArrowFromLeft />
               </li>
             </ul>
           </div>
