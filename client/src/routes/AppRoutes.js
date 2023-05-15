@@ -23,7 +23,6 @@ const AppRoutes = ({ type }) => {
       <div className="header__container">
         <SideNav />
         <div className="u-width-100">
-          <Header />
           <Routes>
             <Route
               path="/"

@@ -104,6 +104,12 @@ const InsertWorkExperience = async (req, res) => {
   }
 };
 
+const InsertSkills = async (req, res) => {
+  
+};
+
+const InsertLanguages = async (req, res) => {};
+
 module.exports = {
   GetCountryController,
   GetCityController,
@@ -111,4 +117,6 @@ module.exports = {
   GetBasicInfo,
   GetAllUserInfo,
   InsertWorkExperience,
+  InsertSkills,
+  InsertLanguages,
 };

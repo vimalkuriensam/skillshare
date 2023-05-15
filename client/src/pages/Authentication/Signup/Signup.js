@@ -44,7 +44,7 @@ const Signup = ({ dispatch }) => {
       const error = validate();
       if (!Object.keys(error).length) {
         const resp = await dispatch(registerUser({ ...signupContent }));
-        if (resp) navigate("/dashboard");
+        if (resp) navigate("/");
       } else setSignupError(error);
     } catch (e) {
       console.log(e.message);

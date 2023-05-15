@@ -171,8 +171,10 @@ const Profile = ({ dispatch, user = {} }) => {
         switch (parseInt(user.info_state)) {
           case 1:
             await dispatch(addBasicInfo(userValue));
+            break;
           case 2:
             await dispatch(addWorkExperience(userValue));
+            break;
         }
       } else setErrorValue((prevState) => ({ ...prevState, ...errors }));
     } catch (e) {

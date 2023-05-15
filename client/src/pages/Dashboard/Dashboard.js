@@ -5,7 +5,7 @@ import { Calendar } from "../../components";
 const Dashboard = () => {
   return (
     <div>
-      <Calendar />
+      
     </div>
   );
 };

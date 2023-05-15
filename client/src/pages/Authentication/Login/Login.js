@@ -31,7 +31,7 @@ const Login = ({ dispatch }) => {
       const error = validate();
       if (!Object.keys(error).length) {
         const resp = await dispatch(loginUser({ ...loginContent }));
-        if (resp) navigate("/dashboard");
+        if (resp) navigate("/");
       } else setLoginError(error);
     } catch (e) {
       console.log(e.message);

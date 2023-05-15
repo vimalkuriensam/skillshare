@@ -45,6 +45,17 @@ const DATA = {
                         FOREIGN KEY(city_id) REFERENCES cities(id),
                         FOREIGN KEY(user_id) REFERENCES users(id)
                       );`,
+  CREATE_TABLE_SKILLS: `CREATE TABLE skills (
+                      id SERIAL PRIMARY KEY,
+                      skill VARCHAR(30) UNIQUE NOT NULL,
+                      )`,
+  CREATE_TABLE_USER_SKILLS: `CREATE TABLE user_skills(
+                      id SERIAL PRIMARY KEY,
+                      skill_id INT NOT NULL,
+                      user_id INT NOT NULL,
+                      FOREIGN KEY(skill_id) REFERENCES skills(id),
+                      FOREIGN KEY(user_id) REFERENCES users(id)
+                      );`,
   INSERT_COUNTRIES: `INSERT INTO countries (name) VALUES (`,
   INSERT_CITIES: `INSERT INTO cities (name, country_id) VALUES (`,
   INSERT_USER: `INSERT INTO users(username, email, password)

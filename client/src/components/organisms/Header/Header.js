@@ -3,6 +3,8 @@ import history from "../../../utils/history/history";
 import { connect } from "react-redux";
 import { deleteToken, deleteUser } from "../../../redux/actions/auth.action";
 import { Icon } from "../../atoms";
+import BlacklistComponent from "../../../hoc/BlacklistComponent";
+import { withRouter } from "../../../hooks/WithRouter";
 
 const Header = ({ dispatch }) => {
   const [popupNav, setPopupNav] = useState(false);
