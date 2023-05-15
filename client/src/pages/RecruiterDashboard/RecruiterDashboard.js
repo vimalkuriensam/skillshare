@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import { PdfSaver, Table } from "../../components";
 import { getAllUserInfo } from "../../redux/actions/auth.action";
 import { DEFAULT_RECRUITER_TABLE_HEADER } from "./data";
+import { decodeUser } from "../../redux/actions/profile.action";
 
 const RecruiterDashboard = ({ dispatch, users = [] }) => {
   useEffect(() => {
@@ -25,8 +26,9 @@ const RecruiterDashboard = ({ dispatch, users = [] }) => {
   };
 
   const onDownloadResume = async (index) => {
-    console.log(users[+index - 1])
-    const blob = await pdf(<PdfSaver user={users[+index - 1]} />).toBlob();
+
+    const decodedUser = await dispatch(decodeUser(users[+index - 1]))
+    const blob = await pdf(<PdfSaver user={decodedUser} />).toBlob();
     if (blob)
       saveAs(
         blob,

@@ -76,6 +76,7 @@ const PdfSaver = ({ user = {} }) => {
             <Text style={styles.headingTitleWhite}>Work Experience</Text>
           </View>
           <View>
+            {console.log("PDFSAVER", user)}
             {user.work_experience.map((experience, index) => (
               <View key={index} style={styles.experienceItem}>
                 <Text style={styles.companyName}>

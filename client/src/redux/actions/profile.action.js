@@ -105,3 +105,85 @@ export const addLanguages =
       console.log(e.message);
     }
   };
+
+export const decodeUser =
+  (user = {}) =>
+  async (dispatch) => {
+    try {
+      const city = await dispatch(getCityById({ id: user.city_id }));
+      const workExperience = user.work_experience.filter(
+        (item, index, array) =>
+          array.findIndex((obj) => obj.id === item.id) === index
+      );
+      const languages = await Promise.all(
+        user.languages
+          .filter(
+            (item, index, array) =>
+              array.findIndex((obj) => obj.id === item.id) === index
+          )
+          .map(async ({ language_id, proficiency }) => ({
+            language_id: await dispatch(getLanguageById({ id: language_id })),
+            proficiency,
+          }))
+      );
+      const skills = await Promise.all(
+        user.skills
+          .filter(
+            (item, index, array) =>
+              array.findIndex((obj) => obj.id === item.id) === index
+          )
+          .map(async ({ skill_id, proficiency }) => ({
+            skill_id: await dispatch(getSkillById({ id: skill_id })),
+            proficiency,
+          }))
+      );
+      return {
+        ...user,
+        city_id: city,
+        languages,
+        skills,
+        work_experience: workExperience,
+      };
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
+
+export const getCityById =
+  ({ id }) =>
+  async (dispatch) => {
+    try {
+      const { data, status } = await apiService().get(
+        `/api/v1/profile/city-by-id/${id}`
+      );
+      if (status == 200) return data["data"]["city"];
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
+
+export const getSkillById =
+  ({ id }) =>
+  async (dispatch) => {
+    try {
+      const { data, status } = await apiService().get(
+        `/api/v1/profile/skill-by-id/${id}`
+      );
+      if (status == 200) return data["data"]["skill"];
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
+
+export const getLanguageById =
+  ({ id }) =>
+  async (dispatch) => {
+    try {
+      const { data, status } = await apiService().get(
+        `/api/v1/profile/language-by-id/${id}`
+      );
+      if (status == 200) return data["data"]["language"];
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
