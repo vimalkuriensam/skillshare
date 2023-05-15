@@ -45,11 +45,11 @@ const DATA = {
                         FOREIGN KEY(city_id) REFERENCES cities(id),
                         FOREIGN KEY(user_id) REFERENCES users(id)
                       );`,
-  CREATE_TABLE_SKILLS: `CREATE TABLE skills (
+  CREATE_TABLE_SKILLS: `CREATE TABLE IF NOT EXISTS skills (
                       id SERIAL PRIMARY KEY,
-                      skill VARCHAR(30) UNIQUE NOT NULL,
+                      skill VARCHAR(50) UNIQUE NOT NULL
                       )`,
-  CREATE_TABLE_USER_SKILLS: `CREATE TABLE user_skills(
+  CREATE_TABLE_USER_SKILLS: `CREATE TABLE IF NOT EXISTS user_skills(
                       id SERIAL PRIMARY KEY,
                       skill_id INT NOT NULL,
                       user_id INT NOT NULL,
@@ -58,6 +58,7 @@ const DATA = {
                       );`,
   INSERT_COUNTRIES: `INSERT INTO countries (name) VALUES (`,
   INSERT_CITIES: `INSERT INTO cities (name, country_id) VALUES (`,
+  INSERT_SKILLS: `INSERT INTO skills (skill) VALUES (`,
   INSERT_USER: `INSERT INTO users(username, email, password)
                 VALUES ($1, $2, $3);`,
   INSERT_BASIC_INFO: `UPDATE users

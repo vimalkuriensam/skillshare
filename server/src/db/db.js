@@ -23,9 +23,32 @@ const createTables = async () => {
     await insertCountryAndCity();
     await createWorkExperience();
     await addRecruiterDefault();
+    await createSkills();
+    await createUserSkills();
+    await insertSkills();
   } catch (e) {
     console.log(e.message);
     await pool.end();
+  }
+};
+
+const insertSkills = async () => {
+  try {
+    const resp = await fs.readFile("src/db/data/skills.json");
+    const {skills=[]} = JSON.parse(resp);
+    let parsedSkills = '';
+    skills.forEach((skill, index) => {
+      if (!index) parsedSkills += `'${skill}')`;
+      else parsedSkills += `, ('${skill}')`;
+    })
+    const skillQuery = `${DATA.INSERT_SKILLS}${parsedSkills} ON CONFLICT DO NOTHING`
+    const queryResp = await pool.query(skillQuery);
+    if (queryResp) {
+      console.log("SKILL DATA ADDED SUCCESSFULLY");
+      return true;
+    }
+  } catch (e) {
+    throw { message: e.message };
   }
 };
 
@@ -145,6 +168,32 @@ const addRecruiterDefault = async () => {
       return true;
     }
   } catch (e) {
+    return false;
+  }
+};
+
+const createSkills = async () => {
+  try {
+    const res = await pool.query(DATA.CREATE_TABLE_SKILLS);
+    if (res?.command) {
+      console.log("SKILLS TABLE CREATED OR ALREADY EXIST...");
+      return true;
+    }
+  } catch (e) {
+    console.log(e.message);
+    return false;
+  }
+};
+
+const createUserSkills = async () => {
+  try {
+    const res = await pool.query(DATA.CREATE_TABLE_USER_SKILLS);
+    if (res?.command) {
+      console.log("USER SKILLS TABLE CREATED OR ALREADY EXIST...");
+      return true;
+    }
+  } catch (e) {
+    console.log(e.message);
     return false;
   }
 };
