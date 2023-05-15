@@ -85,6 +85,32 @@ export const getCountries = () => async (dispatch) => {
   }
 };
 
+export const getAllSkills = () => async (dispatch) => {
+  try {
+    const { data, status } = await apiService().get(
+      `/api/v1/profile/get-all-skills`
+    );
+    if (status == 200) {
+      return data["data"]["skills"];
+    }
+  } catch (e) {
+    console.log(e.message);
+  }
+};
+
+export const getAllLanguages = () => async (dispatch) => {
+  try {
+    const { data, status } = await apiService().get(
+      `/api/v1/profile/get-all-languages`
+    );
+    if (status == 200) {
+      return data["data"]["languages"];
+    }
+  } catch (e) {
+    console.log(e.message);
+  }
+};
+
 export const getCities =
   ({ countryId }) =>
   async (dispatch) => {

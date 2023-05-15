@@ -63,3 +63,45 @@ export const addWorkExperience =
       console.log(e.message);
     }
   };
+
+export const addSkills =
+  ({ skills = [] }) =>
+  async (dispatch) => {
+    try {
+      const skillList = skills.map(({ skill, proficiency }) => ({
+        skill: skill.id,
+        proficiency,
+      }));
+      const { data, status } = await apiService().post(
+        `/api/v1/profile/add-skills`,
+        { skills: skillList }
+      );
+      if (status == 200) {
+        dispatch(deleteUser());
+        dispatch(setUser({ user: data["data"]["user"] }));
+      }
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
+
+export const addLanguages =
+  ({ languages = [] }) =>
+  async (dispatch) => {
+    try {
+      const languageList = languages.map(({ language, proficiency }) => ({
+        language: language.id,
+        proficiency,
+      }));
+      const { data, status } = await apiService().post(
+        `/api/v1/profile/add-languages`,
+        { languages: languageList }
+      );
+      if (status == 200) {
+        dispatch(deleteUser());
+        dispatch(setUser({ user: data["data"]["user"] }));
+      }
+    } catch (e) {
+      console.log(e.message);
+    }
+  };

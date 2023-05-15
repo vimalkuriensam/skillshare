@@ -3,12 +3,16 @@ import { connect } from "react-redux";
 
 import { Stepper } from "../../components";
 import {
+  getAllLanguages,
+  getAllSkills,
   getCities,
   getCountries,
   getUserInfo,
 } from "../../redux/actions/auth.action";
 import {
   addBasicInfo,
+  addLanguages,
+  addSkills,
   addWorkExperience,
 } from "../../redux/actions/profile.action";
 import { ObjectCopy } from "../../utils/data";
@@ -19,6 +23,7 @@ import ProfileForm3 from "./container/ProfileForm3";
 import ProfileForm4 from "./container/ProfileForm4";
 import {
   DISPLAY_VALUES_CONSTANT,
+  proficiency,
   PROFILE_MANDATORY_FIELDS,
   USER_FIELDS,
 } from "./data";
@@ -67,7 +72,10 @@ const Profile = ({ dispatch, user = {} }) => {
   }, []);
 
   useEffect(() => {
-    if (user.info_state != currentStep) setCurrentStep(user.info_state);
+    if (user.info_state != currentStep) {
+      setCurrentStep(user.info_state);
+      fetchInfo();
+    }
   }, [user.info_state]);
 
   useEffect(() => {
@@ -91,6 +99,26 @@ const Profile = ({ dispatch, user = {} }) => {
             setDisplayValues((prevState) => ({ ...prevState, workExperience }));
           }
         }
+      case 3:
+        const skills = await dispatch(getAllSkills());
+        if (skills.length) {
+          const skillsCopy = ObjectCopy(displayValues["skills"]);
+          skillsCopy[skillsCopy.length - 1] = { skills, proficiency };
+          setDisplayValues((prevState) => ({
+            ...prevState,
+            skills: skillsCopy,
+          }));
+        }
+      case 4:
+        const languages = await dispatch(getAllLanguages());
+        if (languages.length) {
+          const languagesCopy = ObjectCopy(displayValues["languages"]);
+          languagesCopy[languagesCopy.length - 1] = { languages, proficiency };
+          setDisplayValues((prevState) => ({
+            ...prevState,
+            languages: languagesCopy,
+          }));
+        }
     }
   };
 
@@ -110,7 +138,9 @@ const Profile = ({ dispatch, user = {} }) => {
   };
 
   const onHandleProficiency = async (tableKey, key, { target: { value } }) => {
+    console.log(tableKey, key, value);
     const tableValue = JSON.parse(JSON.stringify(userValue[tableKey]));
+    console.log(tableValue);
     const arrLength = tableValue.length - 1;
     tableValue[arrLength][key] = value;
     setUserValue((prevState) => ({ ...prevState, [tableKey]: tableValue }));
@@ -126,7 +156,9 @@ const Profile = ({ dispatch, user = {} }) => {
 
   const onChangeProficiency = (tableKey, key, index) => {
     const displayTableData = ObjectCopy(DISPLAY_VALUES_CONSTANT[tableKey]);
+    console.log("dtd", displayTableData);
     if (key > 0) {
+      console.log("here");
       setUserValue((prevState) => ({
         ...prevState,
         [tableKey]: [...prevState[tableKey], { ...USER_FIELDS[tableKey] }],
@@ -159,6 +191,10 @@ const Profile = ({ dispatch, user = {} }) => {
         const workExperience = userValue["workExperience"];
         const endExperience = workExperience[workExperience.length - 1];
         if (!endExperience[key]) error[key] = errorFields[key];
+      } else if (value == 3) {
+        const skills = userValue["skills"];
+        const endSkill = skills[skills.length - 1];
+        if (!endSkill[key]) error[key] = errorFields[key];
       }
     });
     return error;
@@ -174,6 +210,12 @@ const Profile = ({ dispatch, user = {} }) => {
             break;
           case 2:
             await dispatch(addWorkExperience(userValue));
+            break;
+          case 3:
+            dispatch(addSkills(userValue));
+            break;
+          case 4:
+            dispatch(addLanguages(userValue));
             break;
         }
       } else setErrorValue((prevState) => ({ ...prevState, ...errors }));
@@ -210,15 +252,24 @@ const Profile = ({ dispatch, user = {} }) => {
         return (
           <ProfileForm3
             skills={userValue.skills}
+            displayValues={displayValues.skills}
             errors={errorValue}
-            onHandleValue={onHandleValue}
+            onHandleValue={onHandleProficiency.bind(this, "skills")}
+            onChangeProficiency={onChangeProficiency.bind(this, "skills")}
           />
         );
       case 4:
-        return <ProfileForm4 />;
+        return (
+          <ProfileForm4
+            languages={userValue.languages}
+            displayValues={displayValues.languages}
+            errors={errorValue}
+            onHandleValue={onHandleProficiency.bind(this, "languages")}
+            onChangeProficiency={onChangeProficiency.bind(this, "languages")}
+          />
+        );
     }
   };
-
   return (
     <section className="section-profile">
       <Stepper

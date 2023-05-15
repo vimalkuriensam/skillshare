@@ -28,6 +28,20 @@ export const PROFILE_MANDATORY_FIELDS = {
       city: "Please select the city",
     },
   },
+  3: {
+    fields: ["skill", "proficiency"],
+    error: {
+      skill: "Please select the skill",
+      proficiency: "Please select the proficiency",
+    },
+  },
+  4: {
+    fields: ["language", "proficiency"],
+    error: {
+      language: "Please select the language",
+      proficiency: "Please select the proficiency",
+    },
+  },
 };
 
 export const USER_FIELDS = {
@@ -46,7 +60,11 @@ export const USER_FIELDS = {
   languages: { language: "", proficiency: "" },
 };
 
+export const proficiency = ["BEGINNER", "INTERMEDIATE", "ADVANCED"];
+
 export const DISPLAY_VALUES_CONSTANT = {
   basicInfo: { country: [], city: [] },
   workExperience: [{ country: [], city: [] }],
+  skills: [{ skills: [], proficiency: proficiency.slice() }],
+  languages: [{ languages: [], proficiency: proficiency.slice() }],
 };
