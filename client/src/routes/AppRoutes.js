@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { Header, Loader, SideNav } from "../components";
 import {
@@ -6,14 +7,16 @@ import {
   Dashboard as DashboardPage,
   Login as LoginPage,
   Profile as ProfilePage,
+  RecruiterDashboard as RecruiterDashboardPage,
   Settings as SettingsPage,
   Signup as SignupPage,
 } from "../pages";
+import { USER_TYPES } from "../utils/data";
 import customHistory from "../utils/history/history";
 import CustomRouter from "./CustomRouter";
 import PrivateRoute from "./PrivateRoute";
 
-const AppRoutes = () => {
+const AppRoutes = ({ type }) => {
   return (
     <CustomRouter history={customHistory}>
       <Loader />
@@ -22,7 +25,27 @@ const AppRoutes = () => {
         <div className="u-width-100">
           <Header />
           <Routes>
-            <Route path="/" element={<Navigate to="/dashboard" replace />} />
+            <Route
+              path="/"
+              element={
+                <Navigate
+                  to={
+                    type == USER_TYPES.RECRUITER
+                      ? "/recruiter-dashboard"
+                      : "/dashboard"
+                  }
+                  replace
+                />
+              }
+            />
+            <Route
+              path="/recruiter-dashboard"
+              element={
+                <PrivateRoute>
+                  <RecruiterDashboardPage />
+                </PrivateRoute>
+              }
+            />
             <Route
               path="/dashboard"
               element={
@@ -58,4 +81,10 @@ const AppRoutes = () => {
   );
 };
 
-export default AppRoutes;
+const mapStateToProps = ({
+  auth: {
+    user: { type = USER_TYPES.USER },
+  },
+}) => ({ type });
+
+export default connect(mapStateToProps)(AppRoutes);
