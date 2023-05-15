@@ -39,11 +39,16 @@ export const DEFAULT_RECRUITER_TABLE_HEADER = [
       let exp = 0;
       work_experience
         .filter((val) => !!val)
+        .filter(
+          (item, index, array) =>
+            array.findIndex((obj) => obj.id === item.id) === index
+        )
         .forEach(({ start_date, end_date }) => {
           const e = moment(end_date, "YYYY-MM-DD");
           const s = moment(start_date, "YYYY-MM-DD");
           const duration = moment.duration(e.diff(s));
           const years = Number(duration.asYears().toFixed(2));
+          console.log(years);
           exp += years;
         });
       return <Text variant="alr-14-1">{`${exp} years`}</Text>;
