@@ -1,14 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
+import history from "../../../utils/history/history";
+import { connect } from "react-redux";
+import { deleteToken, deleteUser } from "../../../redux/actions/auth.action";
 import { Icon } from "../../atoms";
 
-const Header = () => {
+const Header = ({ dispatch }) => {
+  const [popupNav, setPopupNav] = useState(false);
+  // const navigation = useNavigation();
+
+  const onTogglePopupNav = () => setPopupNav((prevState) => !prevState);
+
+  const onHandleLogout = () => {
+    dispatch(deleteUser());
+    dispatch(deleteToken());
+    history.push("/");
+  };
   return (
     <div className="header">
-      <div className="header__user">
+      <div className="header__user" onClick={onTogglePopupNav}>
         <Icon name="User" />
       </div>
+      {popupNav && (
+        <div className="header__popupNavContainer">
+          <ul>
+            <li onClick={onHandleLogout}>Logout</li>
+          </ul>
+        </div>
+      )}
     </div>
   );
 };
 
-export default Header;
+export default connect()(Header);
