@@ -12,9 +12,7 @@ app.use(cors());
 app.use(express.json());
 app.use(CustomiseResponse);
 
-const PORT = process.env.PORT || 4000;
-
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/profile", profileRouter);
 
-app.listen(PORT, () => console.log(`Server is listening on ${PORT}`));
+module.exports = app

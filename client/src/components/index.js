@@ -10,4 +10,4 @@ export {
   TextArea,
 } from "./atoms";
 export { FormInput, Stepper, Table } from "./molecules";
-export { Header, Loader, SideNav } from "./organisms";
+export { Header, Loader, SideNav, Pagination } from "./organisms";

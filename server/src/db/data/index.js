@@ -89,6 +89,14 @@ const DATA = {
                         LEFT JOIN work_experience ON work_experience.user_id = users.id
                         WHERE users.id = $1
                         GROUP BY users.id, address.id;`,
+  GET_ALL_USER_LEFT_JOINT: `SELECT users.*, 
+                        address.*, 
+                        json_agg(work_experience.*) AS work_experience
+                        FROM users
+                        LEFT JOIN address ON address.user_id = users.id
+                        LEFT JOIN work_experience ON work_experience.user_id = users.id
+                        WHERE users.type != 'RECRUITER'
+                        GROUP BY users.id, address.id;`,
   GET_COUNTRIES: `SELECT * FROM countries`,
   GET_CITIES: `SELECT * FROM cities
                WHERE country_id = $1`,

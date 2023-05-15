@@ -1,7 +1,33 @@
-import React from 'react';
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
+import { Table } from "../../components";
+import { getAllUserInfo } from "../../redux/actions/auth.action";
+import { DEFAULT_RECRUITER_TABLE_HEADER } from "./data";
 
-const RecruiterDashboard = () => {
-    return <div>RecruiterDashboard</div>
-}
+const RecruiterDashboard = ({ dispatch, users = [] }) => {
+  useEffect(() => {
+    dispatch(getAllUserInfo());
+  }, []);
 
-export default RecruiterDashboard
+  const onHandleAction = () => {};
+
+  console.log("users", users);
+  return (
+    <div>
+      <Table
+        minRows={10}
+        header={DEFAULT_RECRUITER_TABLE_HEADER}
+        data={users.map((user, index) => ({ ...user, index: index + 1 }))}
+        loader={null}
+        onHandleTable={onHandleAction}
+        // isVerticalBorder={
+        //   search?.split("=")[search?.split("=").length - 1] == "royaltyTree"
+        // }
+      />
+    </div>
+  );
+};
+
+const mapStateToProps = ({ auth: { users = [] } }) => ({ users });
+
+export default connect(mapStateToProps)(RecruiterDashboard);

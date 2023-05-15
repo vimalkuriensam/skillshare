@@ -1,12 +1,12 @@
+const { DATA } = require("../db/data");
 const {
   AddWorkExperience,
   GetCountries,
   GetCities,
   AddBasicInfo,
-  GetAddress,
-  GetWorkExperience,
 } = require("../db/query");
 const { FIELDS } = require("../utils");
+const { pool } = require("../db/db");
 
 const GetCountryController = async (req, res) => {
   try {
@@ -52,10 +52,24 @@ const InsertBasicInfo = async (req, res) => {
 const GetBasicInfo = async (req, res) => {
   try {
     const id = req.user.id;
-    const { address } = await GetAddress({ id });
+    const {
+      rows: [user],
+    } = await pool.query(DATA.GET_USER_LEFT_JOINT, [id]);
     res.send({
       message: "USER DETAILS FETCHED",
-      user: { ...req.user, ...address },
+      user: { ...user },
+    });
+  } catch (e) {
+    res.status(500).send({ error: e.message });
+  }
+};
+
+const GetAllUserInfo = async (req, res) => {
+  try {
+    const { rows } = await pool.query(DATA.GET_ALL_USER_LEFT_JOINT);
+    res.send({
+      message: "USER DETAILS FETCHED",
+      users: rows.map(({ password, ...rest }) => ({ ...rest })),
     });
   } catch (e) {
     res.status(500).send({ error: e.message });
@@ -95,5 +109,6 @@ module.exports = {
   GetCityController,
   InsertBasicInfo,
   GetBasicInfo,
+  GetAllUserInfo,
   InsertWorkExperience,
 };

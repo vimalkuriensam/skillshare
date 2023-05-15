@@ -3,14 +3,17 @@ import {
   DELETE_COUNTRY,
   DELETE_TOKEN,
   DELETE_USER,
+  DELETE_USERS,
   SET_CITY,
   SET_COUNTRY,
   SET_TOKEN,
   SET_USER,
+  SET_USERS,
 } from "../actions/auth.action";
 
 const authReducerDefaultState = {
   user: {},
+  users: [],
   location: {
     city: undefined,
     country: undefined,
@@ -20,7 +23,7 @@ const authReducerDefaultState = {
 
 const authReducer = (
   state = authReducerDefaultState,
-  { type, user, value = "", country = [], city = [] }
+  { type, user, users = [], value = "", country = [], city = [] }
 ) => {
   switch (type) {
     case SET_COUNTRY:
@@ -35,6 +38,10 @@ const authReducer = (
       return { ...state, user: { ...user } };
     case DELETE_USER:
       return { ...state, user: {} };
+    case SET_USERS:
+      return { ...state, users };
+    case DELETE_USERS:
+      return { ...state, users: [] };
     case SET_TOKEN:
       return { ...state, token: value };
     case DELETE_TOKEN:

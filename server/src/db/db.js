@@ -145,7 +145,6 @@ const addRecruiterDefault = async () => {
       return true;
     }
   } catch (e) {
-    console.log(e.message);
     return false;
   }
 };

@@ -3,6 +3,9 @@ import apiService from "../../api-interceptor/authAxios";
 export const SET_USER = "SET_USER";
 export const DELETE_USER = "DELETE_USER";
 
+export const SET_USERS = "SET_USERS";
+export const DELETE_USERS = "DELETE_USERS";
+
 export const SET_TOKEN = "SET_TOKEN";
 export const DELETE_TOKEN = "DELETE_TOKEN";
 
@@ -126,3 +129,24 @@ export const getUserInfo = () => async (dispatch) => {
     console.log(e.message);
   }
 };
+
+export const getAllUserInfo = () => async (dispatch) => {
+  try {
+    const { data, status } = await apiService().get(
+      `/api/v1/profile/get-all-users`
+    );
+    if (status == 200) {
+      dispatch(deleteUsers());
+      dispatch(setUsers({ users: data["data"]["users"] }));
+    }
+  } catch (e) {
+    console.log(e.message);
+  }
+};
+
+export const deleteUsers = () => ({ type: DELETE_USERS });
+
+export const setUsers = ({ users }) => ({
+  type: SET_USERS,
+  users,
+});
