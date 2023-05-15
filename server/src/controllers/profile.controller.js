@@ -9,6 +9,8 @@ const {
   AddSkills,
   AddLanguages,
   GetCityById,
+  GetLanguageById,
+  GetSkillById,
 } = require("../db/query");
 const { FIELDS } = require("../utils");
 const { pool } = require("../db/db");
@@ -39,6 +41,28 @@ const GetCityByIdController = async (req, res) => {
     if (!id) throw { error: "city id not provided" };
     const { city } = await GetCityById({ id });
     res.status(200).send({ message: "CITY FETCHED", city });
+  } catch (e) {
+    res.status(500).send({ error: e.message });
+  }
+};
+
+const GetLanguageByIdController = async (req, res) => {
+  try {
+    const id = req.params?.id;
+    if (!id) throw { error: "language id not provided" };
+    const { language } = await GetLanguageById({ id });
+    res.status(200).send({ message: "LANGUAGE FETCHED", language });
+  } catch (e) {
+    res.status(500).send({ error: e.message });
+  }
+};
+
+const GetSkillByIdController = async (req, res) => {
+  try {
+    const id = req.params?.id;
+    if (!id) throw { error: "skill id not provided" };
+    const { skill } = await GetSkillById({ id });
+    res.status(200).send({ message: "SKILL FETCHED", skill });
   } catch (e) {
     res.status(500).send({ error: e.message });
   }
@@ -204,4 +228,6 @@ module.exports = {
   GetAllSkills,
   GetAllLanguages,
   GetCityByIdController,
+  GetLanguageByIdController,
+  GetSkillByIdController,
 };

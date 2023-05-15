@@ -116,6 +116,28 @@ const GetCityById = async ({ id }) => {
   }
 };
 
+const GetSkillById = async ({ id }) => {
+  try {
+    const {
+      rows: [{ skill }],
+    } = await pool.query(DATA.GET_SKILL, [id]);
+    return { skill };
+  } catch (e) {
+    throw e;
+  }
+};
+
+const GetLanguageById = async ({ id }) => {
+  try {
+    const {
+      rows: [{ language }],
+    } = await pool.query(DATA.GET_LANGUAGE, [id]);
+    return { language };
+  } catch (e) {
+    throw e;
+  }
+};
+
 const GetSkills = async () => {
   try {
     const { rows: skills } = await pool.query(DATA.GET_ALL_SKILLS);
@@ -301,4 +323,6 @@ module.exports = {
   DeleteUsers,
   DeleteUserById,
   GetCityById,
+  GetSkillById,
+  GetLanguageById,
 };
