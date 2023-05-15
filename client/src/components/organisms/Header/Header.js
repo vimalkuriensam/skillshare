@@ -6,7 +6,6 @@ import { Icon } from "../../atoms";
 
 const Header = ({ dispatch }) => {
   const [popupNav, setPopupNav] = useState(false);
-  // const navigation = useNavigation();
 
   const onTogglePopupNav = () => setPopupNav((prevState) => !prevState);
 
