@@ -7,7 +7,10 @@ import {
   getCountries,
   getUserInfo,
 } from "../../redux/actions/auth.action";
-import { addBasicInfo } from "../../redux/actions/profile.action";
+import {
+  addBasicInfo,
+  addWorkExperience,
+} from "../../redux/actions/profile.action";
 import { ObjectCopy } from "../../utils/data";
 import ProfileAction from "./container/ProfileAction";
 import ProfileForm1 from "./container/ProfileForm1";
@@ -20,7 +23,7 @@ import {
   USER_FIELDS,
 } from "./data";
 
-const Profile = ({ dispatch, countries = [], cities = [], user = {} }) => {
+const Profile = ({ dispatch, user = {} }) => {
   const [currentStep, setCurrentStep] = useState(
     parseInt(user.info_state) || 1
   );
@@ -73,7 +76,8 @@ const Profile = ({ dispatch, countries = [], cities = [], user = {} }) => {
 
   const fetchInfo = async () => {
     switch (user.info_state) {
-      case (1, 2):
+      case 1:
+      case 2:
         const country = await dispatch(getCountries());
         if (country.length) {
           if (user.info_state == 1)
@@ -103,16 +107,6 @@ const Profile = ({ dispatch, countries = [], cities = [], user = {} }) => {
         basicInfo: { ...prevState, city: cities },
       }));
     }
-  };
-
-  const validate = () => {
-    const error = {};
-    const { fields: mandatoryFields, error: errorFields } =
-      PROFILE_MANDATORY_FIELDS[user.info_state];
-    mandatoryFields.forEach((key) => {
-      if (!userValue[key]) error[key] = errorFields[key];
-    });
-    return error;
   };
 
   const onHandleProficiency = async (tableKey, key, { target: { value } }) => {
@@ -154,13 +148,31 @@ const Profile = ({ dispatch, countries = [], cities = [], user = {} }) => {
     }
   };
 
+  const validate = (value) => {
+    const error = {};
+    const { fields: mandatoryFields, error: errorFields } =
+      PROFILE_MANDATORY_FIELDS[user.info_state];
+    mandatoryFields.forEach((key) => {
+      if (value == 1) {
+        if (!userValue[key]) error[key] = errorFields[key];
+      } else if (value == 2) {
+        const workExperience = userValue["workExperience"];
+        const endExperience = workExperience[workExperience.length - 1];
+        if (!endExperience[key]) error[key] = errorFields[key];
+      }
+    });
+    return error;
+  };
+
   const onHandleSubmit = async () => {
     try {
-      const errors = validate();
+      const errors = validate(parseInt(user.info_state));
       if (!Object.keys(errors).length) {
         switch (parseInt(user.info_state)) {
           case 1:
             await dispatch(addBasicInfo(userValue));
+          case 2:
+            await dispatch(addWorkExperience(userValue));
         }
       } else setErrorValue((prevState) => ({ ...prevState, ...errors }));
     } catch (e) {
@@ -217,10 +229,6 @@ const Profile = ({ dispatch, countries = [], cities = [], user = {} }) => {
   );
 };
 
-const mapStateToProps = ({ auth: { location, user } }) => ({
-  user,
-  countries: location.country,
-  cities: location.city,
-});
+const mapStateToProps = ({ auth: { user } }) => ({ user });
 
 export default connect(mapStateToProps)(Profile);

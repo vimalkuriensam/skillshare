@@ -8,6 +8,7 @@ const DATA = {
         last_name VARCHAR(20),
         dob DATE,
         phone VARCHAR(11) UNIQUE,
+        type VARCHAR(20) DEFAULT 'USER' NOT NULL,
         password VARCHAR(100) NOT NULL,
         info_state INT DEFAULT 1 NOT NULL,
         profile_state VARCHAR(10) DEFAULT 'enabled' NOT NULL
@@ -80,11 +81,24 @@ const DATA = {
                       WHERE username = $1`,
   GET_USER_ID: `SELECT * FROM users
                 WHERE id = $1`,
+  GET_USER_LEFT_JOINT: `SELECT users.*, 
+                        address.*, 
+                        json_agg(work_experience.*) AS work_experience
+                        FROM users
+                        LEFT JOIN address ON address.user_id = users.id
+                        LEFT JOIN work_experience ON work_experience.user_id = users.id
+                        WHERE users.id = $1
+                        GROUP BY users.id, address.id;`,
   GET_COUNTRIES: `SELECT * FROM countries`,
   GET_CITIES: `SELECT * FROM cities
                WHERE country_id = $1`,
   GET_WORK_EXPERIENCE: `SELECT * FROM work_experience WHERE user_id = $1;`,
-  DELETE_WORK_EXPERIENCE: `DELETE FROM work_experience WHERE user_id = $1;`
+  DELETE_WORK_EXPERIENCE: `DELETE FROM work_experience WHERE user_id = $1;`,
+  UPDATE_INFO_STATE: `UPDATE users
+                      SET info_state = $1
+                      WHERE id = $2;`,
+  ADD_RECRUITER_DEFAULT: `INSERT INTO users(username, email, password, type) 
+                          VALUES($1, $2, $3, $4)`,
 };
 
 module.exports = { DATA };

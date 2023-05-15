@@ -36,6 +36,7 @@ export const registerUser =
         password,
       });
       if (status == 201) {
+        console.log(data);
         dispatch(setUser({ user: data["data"]["user"] }));
         dispatch(setToken({ value: data["data"]["token"] }));
         return true;

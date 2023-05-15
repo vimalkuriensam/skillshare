@@ -155,8 +155,16 @@ const AddWorkExperience = async ({ workExperience = [], id }) => {
     const deleteResp = await pool.query(DATA.DELETE_WORK_EXPERIENCE, [id]);
     if (deleteResp) {
       const resp = await pool.query(exp);
-      if (resp) return true;
-      else throw { message: "ERROR_ADDING_WORK_EXPERIENCES" };
+      if (resp) {
+        await pool.query(DATA.UPDATE_INFO_STATE, [3, id]);
+        const {
+          rows: [user],
+        } = await pool.query(DATA.GET_USER_LEFT_JOINT, [id]);
+        if (user) {
+          delete user["password"];
+          return user;
+        }
+      } else throw { message: "ERROR_ADDING_WORK_EXPERIENCES" };
     } else throw { message: "ERROR_DELETING_WORK_EXPERIENCES" };
   } catch (e) {
     throw e;

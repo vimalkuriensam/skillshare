@@ -1,3 +1,5 @@
+const bcrypt = require("bcrypt");
+
 const { DATA } = require("./data");
 const fs = require("fs/promises");
 
@@ -20,6 +22,7 @@ const createTables = async () => {
     await createAddress();
     await insertCountryAndCity();
     await createWorkExperience();
+    await addRecruiterDefault();
   } catch (e) {
     console.log(e.message);
     await pool.end();
@@ -120,6 +123,25 @@ const createCities = async () => {
     const res = await pool.query(DATA.CREATE_TABLE_CITIES);
     if (res?.command) {
       console.log("CITY TABLE CREATED OR ALREADY EXIST...");
+      return true;
+    }
+  } catch (e) {
+    console.log(e.message);
+    return false;
+  }
+};
+
+const addRecruiterDefault = async () => {
+  try {
+    const hashedPassword = await bcrypt.hash("Welcome@123", 10);
+    const res = await pool.query(DATA.ADD_RECRUITER_DEFAULT, [
+      "admin",
+      "admin@email.com",
+      hashedPassword,
+      "RECRUITER",
+    ]);
+    if (res?.command) {
+      console.log("DEFAULT RECRUITER ADDED...");
       return true;
     }
   } catch (e) {

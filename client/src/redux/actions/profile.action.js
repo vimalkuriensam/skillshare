@@ -30,7 +30,7 @@ export const addBasicInfo = (user) => async (dispatch) => {
       }
     );
     if (status == 200) {
-      dispatch(deleteUser())
+      dispatch(deleteUser());
       dispatch(setUser({ user: data["data"]["user"] }));
       return true;
     }
@@ -38,3 +38,28 @@ export const addBasicInfo = (user) => async (dispatch) => {
     console.log(e.message);
   }
 };
+
+export const addWorkExperience =
+  ({ workExperience = [] }) =>
+  async (dispatch) => {
+    try {
+      let we = workExperience.map(
+        ({ current, startDate, endDate, city, companyName }) => ({
+          companyName,
+          startDate: moment(startDate).format("YYYY-MM-DD"),
+          endDate: current ? "" : moment(endDate).format("YYYY-MM-DD"),
+          current,
+          city: city.id,
+        })
+      );
+      const { data, status } = await apiService().post(
+        `/api/v1/profile/add-work-experience`,
+        { workExperience: we }
+      );
+      if (status == 200) {
+        dispatch(setUser({ user: data["data"]["user"] }));
+      }
+    } catch (e) {
+      console.log(e.message);
+    }
+  };

@@ -83,15 +83,8 @@ const InsertWorkExperience = async (req, res) => {
           },
         };
     });
-    const resp = await AddWorkExperience({ workExperience, id });
-    if (resp) {
-      const { address } = await GetAddress({ id });
-      const { workExperience } = await GetWorkExperience({ id });
-      res.send({
-        message: "WORK EXPERIENCES ADDED",
-        user: { ...req.user, ...address, workExperience },
-      });
-    }
+    const user = await AddWorkExperience({ workExperience, id });
+    if (user) res.send({ message: "WORK EXPERIENCES ADDED", user });
   } catch (e) {
     res.status(500).send({ error: e.message });
   }
