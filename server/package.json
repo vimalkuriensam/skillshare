@@ -7,7 +7,7 @@
     "start": "node src/index.js",
     "dev": "nodemon --legacy-watch src/index.js",
     "dev:os": "env-cmd -f ./src/environment/.env.test nodemon src/index.js",
-    "test": "env-cmd -f ./src/environment/.env.test jest --watchAll"
+    "test": "env-cmd -f ./src/environment/.env.test jest --watchAll --runInBand"
   },
   "jest": {
     "testEnvironment": "node"

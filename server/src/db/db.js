@@ -177,14 +177,19 @@ const createCities = async () => {
   }
 };
 
-const addRecruiterDefault = async () => {
+const addRecruiterDefault = async ({
+  username = "admin",
+  email = "admin@email.com",
+  password = "Welcome@123",
+  type = "RECRUITER",
+} = {}) => {
   try {
-    const hashedPassword = await bcrypt.hash("Welcome@123", 10);
+    const hashedPassword = await bcrypt.hash(password, 10);
     const res = await pool.query(DATA.ADD_RECRUITER_DEFAULT, [
-      "admin",
-      "admin@email.com",
+      username,
+      email,
       hashedPassword,
-      "RECRUITER",
+      type,
     ]);
     if (res?.command) {
       console.log("DEFAULT RECRUITER ADDED...");
@@ -249,4 +254,4 @@ const createUserLanguages = async () => {
 
 createTables();
 
-module.exports = { pool };
+module.exports = { pool, addRecruiterDefault };
