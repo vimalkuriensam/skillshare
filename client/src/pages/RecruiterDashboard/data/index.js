@@ -45,14 +45,13 @@ export const DEFAULT_RECRUITER_TABLE_HEADER = [
       return <span>{`${exp} years`}</span>;
     },
   },
-  //   {
-  //     heading: "Type",
-  //     accessor: "type",
-  //     cell: ({ type }) =>
-  //       type === "Credit" ? (
-  //         <span className="table__success">Credit</span>
-  //       ) : (
-  //         <span className="table__danger">Debit</span>
-  //       ),
-  //   },
+  {
+    header: "ACTION",
+    accessor: "",
+    cell: ({ onHandleAction = () => {} }) => {
+      return <div>
+        
+      </div>;
+    },
+  },
 ];
