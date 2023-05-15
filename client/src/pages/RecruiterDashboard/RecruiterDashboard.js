@@ -1,6 +1,9 @@
+import { pdf } from "@react-pdf/renderer";
 import React, { useEffect } from "react";
+import { saveAs } from "file-saver";
+import moment from "moment";
 import { connect } from "react-redux";
-import { Table } from "../../components";
+import { PdfSaver, Table } from "../../components";
 import { getAllUserInfo } from "../../redux/actions/auth.action";
 import { DEFAULT_RECRUITER_TABLE_HEADER } from "./data";
 
@@ -9,8 +12,26 @@ const RecruiterDashboard = ({ dispatch, users = [] }) => {
     dispatch(getAllUserInfo());
   }, []);
 
-  const onHandleAction = (actionState) => {
-    console.log(actionState);
+  const onHandleAction = async (actionState) => {
+    switch (Object.keys(actionState)[0]) {
+      case "download":
+        await onDownloadResume(actionState["download"]["index"]);
+        break;
+      case "reject":
+        break;
+      case "select":
+        break;
+    }
+  };
+
+  const onDownloadResume = async (index) => {
+    console.log(users[+index - 1])
+    const blob = await pdf(<PdfSaver user={users[+index - 1]} />).toBlob();
+    if (blob)
+      saveAs(
+        blob,
+        `${users[+index - 1].last_name.replace(/ +/g, "")}_${moment().valueOf()}`
+      );
   };
   return (
     <section className="section-recruiter">

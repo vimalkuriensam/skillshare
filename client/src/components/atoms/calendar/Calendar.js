@@ -38,6 +38,7 @@ const Calendar = ({
   useEffect(() => {
     const handler = (event) => {
       if (
+        event.target.className?.baseVal == "" ||
         event.target.className?.includes(
           "react-datepicker__navigation react-datepicker__navigation--previous"
         ) ||

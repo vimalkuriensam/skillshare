@@ -11,12 +11,14 @@ const {
   InsertLanguages,
   GetAllSkills,
   GetAllLanguages,
+  GetCityByIdController,
 } = require("../controllers/profile.controller");
 const { Auth } = require("../middleware/Auth");
 
 const router = express.Router();
 
 router.get("/city/:id", Auth, GetCityController);
+router.get("/city-by-id/:id", Auth, GetCityByIdController)
 router.get("/country", Auth, GetCountryController);
 router.post("/add-basic-info", Auth, InsertBasicInfo);
 router.get("/get-user-info", Auth, GetBasicInfo);

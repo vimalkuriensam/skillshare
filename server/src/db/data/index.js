@@ -143,6 +143,8 @@ const DATA = {
   GET_COUNTRIES: `SELECT * FROM countries`,
   GET_CITIES: `SELECT * FROM cities
                WHERE country_id = $1`,
+  GET_CITY: `SELECT name FROM cities
+             WHERE id = $1`,
   GET_WORK_EXPERIENCE: `SELECT * FROM work_experience WHERE user_id = $1;`,
   DELETE_WORK_EXPERIENCE: `DELETE FROM work_experience WHERE user_id = $1;`,
   DELETE_SKILLS: `DELETE FROM user_skills WHERE user_id = $1;`,

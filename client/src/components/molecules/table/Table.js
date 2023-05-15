@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Text, Title } from "../../atoms";
 import { BiArrowFromRight, BiArrowFromLeft } from "react-icons/bi";
 import { Loader, Pagination } from "../../organisms";
+import { ObjectCopy } from "../../../utils/data";
 
 const Table = ({
   header = [],
@@ -20,12 +21,16 @@ const Table = ({
   const onHandleAction = (index, props, accessor) => {
     setTableActionFn((prevState) => ({
       ...prevState,
-      [accessor]: { index, ...props },
+      [props]: { index, ...data[index] },
     }));
   };
 
   useEffect(() => {
-    onHandleTable(tableActionFn);
+    if (Object.keys(tableActionFn).length) {
+      const tableFnCopy = ObjectCopy(tableActionFn);
+      onHandleTable(tableFnCopy);
+      setTableActionFn({});
+    }
   }, [tableActionFn]);
 
   return (
@@ -55,7 +60,7 @@ const Table = ({
                         cell({
                           [accessor]: value[accessor],
                           details: value,
-                          onHandleAction: onHandleAction.bind(this, index),
+                          onHandleAction: onHandleAction.bind(this, idx),
                         })
                       ) : (
                         <Text variant="alr-14-1">{value[accessor] || ""}</Text>

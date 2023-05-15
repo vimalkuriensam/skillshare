@@ -8,6 +8,7 @@ const {
   GetLanguages,
   AddSkills,
   AddLanguages,
+  GetCityById,
 } = require("../db/query");
 const { FIELDS } = require("../utils");
 const { pool } = require("../db/db");
@@ -27,6 +28,17 @@ const GetCityController = async (req, res) => {
     if (!id) throw { error: "country id not provided" };
     const { cities } = await GetCities({ id });
     res.status(200).send({ message: "CITIES FETCHED", cities });
+  } catch (e) {
+    res.status(500).send({ error: e.message });
+  }
+};
+
+const GetCityByIdController = async (req, res) => {
+  try {
+    const id = req.params?.id;
+    if (!id) throw { error: "city id not provided" };
+    const { city } = await GetCityById({ id });
+    res.status(200).send({ message: "CITY FETCHED", city });
   } catch (e) {
     res.status(500).send({ error: e.message });
   }
@@ -191,4 +203,5 @@ module.exports = {
   InsertLanguages,
   GetAllSkills,
   GetAllLanguages,
+  GetCityByIdController,
 };
