@@ -87,6 +87,26 @@ const GetCities = async ({ id }) => {
   }
 };
 
+const GetSkills = async () => {
+  try {
+    const { rows: skills } = await pool.query(DATA.GET_ALL_SKILLS);
+    if (!skills) return { skills: [] };
+    return { skills };
+  } catch (e) {
+    throw e;
+  }
+};
+
+const GetLanguages = async () => {
+  try {
+    const { rows: languages } = await pool.query(DATA.GET_ALL_LANGUAGES);
+    if (!languages) return { languages: [] };
+    return { languages };
+  } catch (e) {
+    throw e;
+  }
+};
+
 const AddBasicInfo = async (values) => {
   try {
     const {
@@ -171,6 +191,60 @@ const AddWorkExperience = async ({ workExperience = [], id }) => {
   }
 };
 
+const AddSkills = async ({ skills = [], id }) => {
+  try {
+    let s = "";
+    skills.forEach(({ skill, proficiency }, index) => {
+      if (!index) s += `'${skill}', '${proficiency}', '${id}')`;
+      else s += `, ('${skill}', '${proficiency}', '${id}')`;
+    });
+    s = `${DATA.INSERT_USER_SKILLS}${s};`;
+    const deleteResp = await pool.query(DATA.DELETE_SKILLS, [id]);
+    if (deleteResp) {
+      const resp = await pool.query(s);
+      if (resp) {
+        await pool.query(DATA.UPDATE_INFO_STATE, [4, id]);
+        const {
+          rows: [user],
+        } = await pool.query(DATA.GET_USER_LEFT_JOINT, [id]);
+        if (user) {
+          delete user["password"];
+          return user;
+        }
+      } else throw { message: "ERROR_ADDING_SKILLS" };
+    } else throw { message: "ERROR_DELETING_SKILLS" };
+  } catch (e) {
+    throw e;
+  }
+};
+
+const AddLanguages = async ({ languages = [], id }) => {
+  try {
+    let s = "";
+    languages.forEach(({ language, proficiency }, index) => {
+      if (!index) s += `'${language}', '${proficiency}', '${id}')`;
+      else s += `, ('${language}', '${proficiency}', '${id}')`;
+    });
+    s = `${DATA.INSERT_USER_LANGUAGES}${s};`;
+    const deleteResp = await pool.query(DATA.DELETE_LANGUAGES, [id]);
+    if (deleteResp) {
+      const resp = await pool.query(s);
+      if (resp) {
+        await pool.query(DATA.UPDATE_INFO_STATE, [5, id]);
+        const {
+          rows: [user],
+        } = await pool.query(DATA.GET_USER_LEFT_JOINT, [id]);
+        if (user) {
+          delete user["password"];
+          return user;
+        }
+      } else throw { message: "ERROR_ADDING_SKILLS" };
+    } else throw { message: "ERROR_DELETING_SKILLS" };
+  } catch (e) {
+    throw e;
+  }
+};
+
 const GetWorkExperience = async ({ id }) => {
   try {
     const { rows = [] } = await pool.query(DATA.GET_WORK_EXPERIENCE, [id]);
@@ -191,4 +265,8 @@ module.exports = {
   GetCities,
   AddWorkExperience,
   GetWorkExperience,
+  GetLanguages,
+  GetSkills,
+  AddSkills,
+  AddLanguages,
 };

@@ -18,6 +18,8 @@ const FIELDS = {
     "pincode",
   ],
   WORK_EXPERIENCE: ["companyName", "startDate", "current", "city"],
+  SKILLS: ["skill", "proficiency"],
+  LANGUAGES: ["language", "proficiency"],
 };
 
 module.exports = { generateAuthToken, passwordMatch, FIELDS };

@@ -9,6 +9,8 @@ const {
   GetAllUserInfo,
   InsertSkills,
   InsertLanguages,
+  GetAllSkills,
+  GetAllLanguages,
 } = require("../controllers/profile.controller");
 const { Auth } = require("../middleware/Auth");
 
@@ -22,5 +24,7 @@ router.get("/get-all-users", Auth, GetAllUserInfo);
 router.post("/add-work-experience", Auth, InsertWorkExperience);
 router.post("/add-skills", Auth, InsertSkills);
 router.post("/add-languages", Auth, InsertLanguages);
+router.get("/get-all-skills", Auth, GetAllSkills);
+router.get("/get-all-languages", Auth, GetAllLanguages);
 
 module.exports = { router };

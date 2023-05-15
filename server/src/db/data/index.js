@@ -72,6 +72,7 @@ const DATA = {
   INSERT_COUNTRIES: `INSERT INTO countries (name) VALUES (`,
   INSERT_CITIES: `INSERT INTO cities (name, country_id) VALUES (`,
   INSERT_SKILLS: `INSERT INTO skills (skill) VALUES (`,
+  INSERT_LANGUAGES: `INSERT INTO languages (language) VALUES (`,
   INSERT_USER: `INSERT INTO users(username, email, password)
                 VALUES ($1, $2, $3);`,
   INSERT_BASIC_INFO: `UPDATE users
@@ -100,6 +101,16 @@ const DATA = {
                             city_id, 
                             user_id) 
                           VALUES (`,
+  INSERT_USER_SKILLS: `INSERT INTO user_skills (
+                            skill_id, 
+                            proficiency, 
+                            user_id) 
+                          VALUES (`,
+  INSERT_USER_LANGUAGES: `INSERT INTO user_languages (
+                            language_id, 
+                            proficiency, 
+                            user_id) 
+                          VALUES (`,
   GET_ADDRESS: `SELECT * FROM address
                 WHERE user_id = $1`,
   GET_USER_USERNAME: `SELECT * FROM users
@@ -108,30 +119,45 @@ const DATA = {
                 WHERE id = $1`,
   GET_USER_LEFT_JOINT: `SELECT users.*, 
                         address.*, 
-                        json_agg(work_experience.*) AS work_experience
+                        json_agg(work_experience) AS work_experience,
+                        json_agg(user_skills) AS skills,
+                        json_agg(user_languages) AS languages
                         FROM users
                         LEFT JOIN address ON address.user_id = users.id
+                        LEFT JOIN user_skills ON user_skills.user_id = users.id
+                        LEFT JOIN user_languages ON user_languages.user_id = users.id
                         LEFT JOIN work_experience ON work_experience.user_id = users.id
                         WHERE users.id = $1
                         GROUP BY users.id, address.id;`,
   GET_ALL_USER_LEFT_JOINT: `SELECT users.*, 
-                        address.*, 
-                        json_agg(work_experience.*) AS work_experience
-                        FROM users
-                        LEFT JOIN address ON address.user_id = users.id
-                        LEFT JOIN work_experience ON work_experience.user_id = users.id
-                        WHERE users.type != 'RECRUITER'
-                        GROUP BY users.id, address.id;`,
+                            address.*, 
+                            json_agg(work_experience) AS work_experience,
+                            json_agg(user_skills) AS skills,
+                            json_agg(user_languages) AS languages
+                            FROM users
+                            LEFT JOIN address ON address.user_id = users.id
+                            LEFT JOIN user_skills ON user_skills.user_id = users.id
+                            LEFT JOIN user_languages ON user_languages.user_id = users.id
+                            LEFT JOIN work_experience ON work_experience.user_id = users.id
+                            GROUP BY users.id, address.id;`,
   GET_COUNTRIES: `SELECT * FROM countries`,
   GET_CITIES: `SELECT * FROM cities
                WHERE country_id = $1`,
   GET_WORK_EXPERIENCE: `SELECT * FROM work_experience WHERE user_id = $1;`,
   DELETE_WORK_EXPERIENCE: `DELETE FROM work_experience WHERE user_id = $1;`,
+  DELETE_SKILLS: `DELETE FROM user_skills WHERE user_id = $1;`,
+  DELETE_LANGUAGES: `DELETE FROM user_languages WHERE user_id = $1;`,
   UPDATE_INFO_STATE: `UPDATE users
                       SET info_state = $1
                       WHERE id = $2;`,
   ADD_RECRUITER_DEFAULT: `INSERT INTO users(username, email, password, type) 
                           VALUES($1, $2, $3, $4)`,
+  GET_ALL_SKILLS: `SELECT * FROM skills`,
+  GET_USER_SKILLS: `SELECT user_skills.id, skills.skill, user_skills.proficiency
+                    FROM user_skills
+                    LEFT JOIN skills ON user_skills.skill_id = skills.id
+                    WHERE user_skills.user_id = $1;`,
+  GET_ALL_LANGUAGES: `SELECT * FROM languages`,
 };
 
 module.exports = { DATA };

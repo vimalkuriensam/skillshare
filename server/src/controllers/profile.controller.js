@@ -4,6 +4,10 @@ const {
   GetCountries,
   GetCities,
   AddBasicInfo,
+  GetSkills,
+  GetLanguages,
+  AddSkills,
+  AddLanguages,
 } = require("../db/query");
 const { FIELDS } = require("../utils");
 const { pool } = require("../db/db");
@@ -104,11 +108,77 @@ const InsertWorkExperience = async (req, res) => {
   }
 };
 
-const InsertSkills = async (req, res) => {
-  
+const GetAllSkills = async (req, res) => {
+  try {
+    const { skills } = await GetSkills();
+    res.status(200).send({ message: "SKILLS FETCHED", skills });
+  } catch (e) {
+    res.status(500).send({ error: e.message });
+  }
 };
 
-const InsertLanguages = async (req, res) => {};
+const GetAllLanguages = async (req, res) => {
+  try {
+    const { languages } = await GetLanguages();
+    res.status(200).send({ message: "LANGUAGES FETCHED", languages });
+  } catch (e) {
+    res.status(500).send({ error: e.message });
+  }
+};
+
+const InsertSkills = async (req, res) => {
+  try {
+    const id = req.user.id;
+    const { skills = null } = req.body;
+    if (!skills) throw { message: "Please provide skills field" };
+    if (skills.constructor.name != "Array")
+      throw { message: "INVALID SKILLS FIELD FORMAT" };
+    skills.forEach((skill, index) => {
+      const fieldCheck = FIELDS.SKILLS.map((s) =>
+        skill[s] == null || skill[s] == undefined ? s : null
+      ).filter((val) => !!val);
+      if (fieldCheck.length)
+        throw {
+          message: {
+            message: "MANDATORY FIELDS MISSING",
+            missingFields: fieldCheck,
+            index,
+          },
+        };
+    });
+    const user = await AddSkills({ skills, id });
+    if (user) res.send({ message: "SKILLS ADDED", user });
+  } catch (e) {
+    res.status(500).send({ error: e.message });
+  }
+};
+
+const InsertLanguages = async (req, res) => {
+  try {
+    const id = req.user.id;
+    const { languages = null } = req.body;
+    if (!languages) throw { message: "Please provide languages field" };
+    if (languages.constructor.name != "Array")
+      throw { message: "INVALID LANGUAGES FIELD FORMAT" };
+    languages.forEach((language, index) => {
+      const fieldCheck = FIELDS.LANGUAGES.map((s) =>
+        language[s] == null || language[s] == undefined ? s : null
+      ).filter((val) => !!val);
+      if (fieldCheck.length)
+        throw {
+          message: {
+            message: "MANDATORY FIELDS MISSING",
+            missingFields: fieldCheck,
+            index,
+          },
+        };
+    });
+    const user = await AddLanguages({ languages, id });
+    if (user) res.send({ message: "LANGUAGES ADDED", user });
+  } catch (e) {
+    res.status(500).send({ error: e.message });
+  }
+};
 
 module.exports = {
   GetCountryController,
@@ -119,4 +189,6 @@ module.exports = {
   InsertWorkExperience,
   InsertSkills,
   InsertLanguages,
+  GetAllSkills,
+  GetAllLanguages,
 };

@@ -59,13 +59,13 @@ const insertLanguages = async () => {
   try {
     const resp = await fs.readFile("src/db/data/languages.json");
     const { languages = [] } = JSON.parse(resp);
-    let parsedSkills = "";
+    let parsedLanguages = "";
     languages.forEach((skill, index) => {
-      if (!index) parsedSkills += `'${skill}')`;
-      else parsedSkills += `, ('${skill}')`;
+      if (!index) parsedLanguages += `'${skill}')`;
+      else parsedLanguages += `, ('${skill}')`;
     });
-    const skillQuery = `${DATA.INSERT_SKILLS}${parsedSkills} ON CONFLICT DO NOTHING`;
-    const queryResp = await pool.query(skillQuery);
+    const languageQuery = `${DATA.INSERT_LANGUAGES}${parsedLanguages} ON CONFLICT DO NOTHING`;
+    const queryResp = await pool.query(languageQuery);
     if (queryResp) {
       console.log("LANGUAGE DATA ADDED SUCCESSFULLY");
       return true;
