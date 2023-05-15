@@ -9,5 +9,5 @@ export {
   Text,
   TextArea,
 } from "./atoms";
-export { FormInput, Stepper } from "./molecules";
+export { FormInput, Stepper, Table } from "./molecules";
 export { Header, Loader, SideNav } from "./organisms";
