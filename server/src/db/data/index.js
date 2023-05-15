@@ -53,9 +53,22 @@ const DATA = {
                       id SERIAL PRIMARY KEY,
                       skill_id INT NOT NULL,
                       user_id INT NOT NULL,
+                      proficiency VARCHAR(20) DEFAULT 'BEGINNER' NOT NULL,
                       FOREIGN KEY(skill_id) REFERENCES skills(id),
                       FOREIGN KEY(user_id) REFERENCES users(id)
                       );`,
+  CREATE_TABLE_LANGUAGES: `CREATE TABLE IF NOT EXISTS languages (
+                        id SERIAL PRIMARY KEY,
+                        language VARCHAR(50) UNIQUE NOT NULL
+                        )`,
+  CREATE_TABLE_USER_LANGUAGES: `CREATE TABLE IF NOT EXISTS user_languages(
+                        id SERIAL PRIMARY KEY,
+                        language_id INT NOT NULL,
+                        user_id INT NOT NULL,
+                        proficiency VARCHAR(20) DEFAULT 'BEGINNER' NOT NULL,
+                        FOREIGN KEY(language_id) REFERENCES languages(id),
+                        FOREIGN KEY(user_id) REFERENCES users(id)
+                        );`,
   INSERT_COUNTRIES: `INSERT INTO countries (name) VALUES (`,
   INSERT_CITIES: `INSERT INTO cities (name, country_id) VALUES (`,
   INSERT_SKILLS: `INSERT INTO skills (skill) VALUES (`,

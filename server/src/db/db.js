@@ -25,7 +25,10 @@ const createTables = async () => {
     await addRecruiterDefault();
     await createSkills();
     await createUserSkills();
+    await createLanguages();
+    await createUserLanguages();
     await insertSkills();
+    await insertLanguages();
   } catch (e) {
     console.log(e.message);
     await pool.end();
@@ -35,16 +38,36 @@ const createTables = async () => {
 const insertSkills = async () => {
   try {
     const resp = await fs.readFile("src/db/data/skills.json");
-    const {skills=[]} = JSON.parse(resp);
-    let parsedSkills = '';
+    const { skills = [] } = JSON.parse(resp);
+    let parsedSkills = "";
     skills.forEach((skill, index) => {
       if (!index) parsedSkills += `'${skill}')`;
       else parsedSkills += `, ('${skill}')`;
-    })
-    const skillQuery = `${DATA.INSERT_SKILLS}${parsedSkills} ON CONFLICT DO NOTHING`
+    });
+    const skillQuery = `${DATA.INSERT_SKILLS}${parsedSkills} ON CONFLICT DO NOTHING`;
     const queryResp = await pool.query(skillQuery);
     if (queryResp) {
       console.log("SKILL DATA ADDED SUCCESSFULLY");
+      return true;
+    }
+  } catch (e) {
+    throw { message: e.message };
+  }
+};
+
+const insertLanguages = async () => {
+  try {
+    const resp = await fs.readFile("src/db/data/languages.json");
+    const { languages = [] } = JSON.parse(resp);
+    let parsedSkills = "";
+    languages.forEach((skill, index) => {
+      if (!index) parsedSkills += `'${skill}')`;
+      else parsedSkills += `, ('${skill}')`;
+    });
+    const skillQuery = `${DATA.INSERT_SKILLS}${parsedSkills} ON CONFLICT DO NOTHING`;
+    const queryResp = await pool.query(skillQuery);
+    if (queryResp) {
+      console.log("LANGUAGE DATA ADDED SUCCESSFULLY");
       return true;
     }
   } catch (e) {
@@ -190,6 +213,32 @@ const createUserSkills = async () => {
     const res = await pool.query(DATA.CREATE_TABLE_USER_SKILLS);
     if (res?.command) {
       console.log("USER SKILLS TABLE CREATED OR ALREADY EXIST...");
+      return true;
+    }
+  } catch (e) {
+    console.log(e.message);
+    return false;
+  }
+};
+
+const createLanguages = async () => {
+  try {
+    const res = await pool.query(DATA.CREATE_TABLE_LANGUAGES);
+    if (res?.command) {
+      console.log("LANGUAGES TABLE CREATED OR ALREADY EXIST...");
+      return true;
+    }
+  } catch (e) {
+    console.log(e.message);
+    return false;
+  }
+};
+
+const createUserLanguages = async () => {
+  try {
+    const res = await pool.query(DATA.CREATE_TABLE_USER_LANGUAGES);
+    if (res?.command) {
+      console.log("USER LANGUAGES TABLE CREATED OR ALREADY EXIST...");
       return true;
     }
   } catch (e) {
